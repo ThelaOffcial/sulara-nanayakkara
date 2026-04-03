@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sulara Nanayakkara | Violinist</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, #1a1a1a, #000000);
+      animation: slowShift 18s ease infinite;
+    }
+
+    .animated-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(45deg, rgba(255,255,240,0.02) 0px, rgba(255,255,240,0.02) 2px, transparent 2px, transparent 8px);
+      pointer-events: none;
+    }
+
+    @keyframes slowShift {
+      0% { background: radial-gradient(circle at 20% 30%, #1e1e1e, #030303); }
+      50% { background: radial-gradient(circle at 80% 70%, #2a2a2a, #0a0a0a); }
+      100% { background: radial-gradient(circle at 20% 30%, #1e1e1e, #030303); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Navbar: flex container */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: transparent;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    /* Name on the left – hidden initially */
+    .navbar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #f5bc70;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .navbar-name.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Nav links container */
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .navbar a {
+      color: #f5bc70;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: 0.3s;
+      text-shadow: 0 0 2px rgba(0,0,0,0.5);
+    }
+
+    .navbar a:hover {
+      color: #ffd966;
+      text-shadow: 0 0 6px rgba(245,188,112,0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Default: name hidden, links centered */
+    .navbar {
+      justify-content: center;
+    }
+
+    /* When name is visible: name on left, links on right */
+    .navbar.with-name {
+      justify-content: space-between;
+    }
+
+    .navbar.with-name .nav-links {
+      margin-left: auto;
+    }
+
+    /* responsive adjustments */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0.8rem 1rem;
+      }
+      .navbar-name {
+        font-size: 0.9rem;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .navbar a {
+        font-size: 0.8rem;
+      }
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* hero */
+    .hero {
+      margin-top: 80px;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-picture {
+      width: 100%;
+      max-height: 85vh;
+      overflow: hidden;
+    }
+
+    .hero-picture picture img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-text {
+      position: absolute;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      padding: 1.8rem 2.5rem;
+      border-radius: 40px;
+      border-left: 4px solid #f5bc70;
+      max-width: 85%;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      font-family: 'Playfair Display', serif;
+      color: #fff5e6;
+    }
+
+    .hero-text p {
+      font-size: 1.3rem;
+      color: #f5bc70;
+      font-style: italic;
+    }
+
+    /* image rows */
+    .image-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .photo-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plain-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 0px;
+      box-shadow: none;
+      opacity: 0;
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
+    }
+
+    .plain-img[data-pop="left"] {
+      transform: translateX(-60px);
+    }
+    .plain-img[data-pop="right"] {
+      transform: translateX(60px);
+    }
+    .plain-img[data-pop="bottom"] {
+      transform: translateY(60px);
+    }
+
+    .plain-img.reveal {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+
+    /* longer description style */
+    .img-description {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #e0cba0;
+      line-height: 1.5;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-style: normal;
+      letter-spacing: 0.3px;
+      background: rgba(0,0,0,0.3);
+      padding: 0.8rem;
+      border-radius: 12px;
+    }
+
+    .bio-text {
+      background: rgba(10,10,10,0.55);
+      backdrop-filter: blur(4px);
+      padding: 2rem 2.5rem;
+      border-radius: 28px;
+      margin: 2rem 0;
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: #f5efe7;
+      border-left: 3px solid #f5bc70;
+    }
+
+    .bio-text strong {
+      color: #f5bc70;
+      font-weight: 600;
+    }
+
+    .badge-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .badge {
+      background: rgba(245,188,112,0.15);
+      padding: 0.4rem 1.2rem;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      color: #f5bc70;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(245,188,112,0.2);
+      background: rgba(0,0,0,0.4);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 1.8rem;
+      }
+      .hero-text p {
+        font-size: 1rem;
+      }
+      .hero-text {
+        padding: 1rem 1.5rem;
+      }
+      .image-row {
+        gap: 1rem;
+      }
+      .bio-text {
+        padding: 1.2rem 1.5rem;
+        font-size: 1rem;
+      }
+      .img-description {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+      }
+      .container {
+        padding: 0 1rem;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+<div class="animated-bg"></div>
+<div class="content">
+  <nav class="navbar" id="navbar">
+    <span class="navbar-name" id="navbarName">Sulara Nanayakkara</span>
+    <div class="nav-links">
+      <a href="#home">HOME</a>
+      <a href="#bio1">BIO</a>
+      <a href="#gallery">GALLERY</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section id="home" class="hero">
+      <div class="hero-picture">
+        <picture>
+          <source media="(max-width: 768px)" srcset="hero mobile 1.jpg">
+          <source media="(min-width: 769px)" srcset="hero landscape 2.jpg">
+          <img src="hero landscape 2.jpg" alt="Sulara Nanayakkara">
+        </picture>
+      </div>
+      <div class="hero-text">
+        <h1>Sulara Nanayakkara</h1>
+        <p>Violinist | Sri Lanka’s lyrical voice</p>
+      </div>
+    </section>
+
+    <!-- ROW 1: two images, no descriptions -->
+    <div class="image-row" id="gallery">
+      <div class="photo-item">
+        <img src="image1.jpg" alt="Performance" class="plain-img" data-pop="left">
+      </div>
+      <div class="photo-item">
+        <img src="image2.jpg" alt="Concert" class="plain-img" data-pop="right">
+      </div>
+    </div>
+
+    <!-- LONG BIO 1 -->
+    <div id="bio1" class="bio-text">
+      <p><strong>Sulara Nanayakkara</strong> is widely regarded as one of the finest violinists to emerge from Sri Lanka. His musical journey began at the age of seven, and by seventeen he had already won the National Youth Orchestra competition. Driven by an insatiable thirst for excellence, Sulara pursued advanced degrees at the <strong>Royal Academy of Music in London</strong> and the <strong>Juilliard School in New York</strong>, studying under legendary pedagogues. His playing blends technical precision with an unmistakable warmth that moves audiences from Colombo to Carnegie Hall.</p>
+      <div class="badge-container">
+        <span class="badge">🎓 RAM (UK)</span>
+        <span class="badge">🎓 Juilliard (USA)</span>
+        <span class="badge">🎻 Senior Head Violinist – Chamber Music Colombo</span>
+      </div>
+      <p style="margin-top: 1rem;">Currently, Sulara serves as the <strong>Senior Head Violinist of Chamber Music Colombo</strong>, where he leads the string section in groundbreaking performances that fuse Western classical traditions with Sri Lankan ragas. His interpretation of Bach's Chaconne has been called “spellbinding” by critics, and his 2024 tour raised funds for young musicians across the island.</p>
+    </div>
+
+    <!-- ROW 2: two images, no descriptions -->
+    <div class="image-row">
+      <div class="photo-item">
+        <img src="image3.jpg" alt="Masterclass" class="plain-img" data-pop="bottom">
+      </div>
+      <div class="photo-item">
+        <img src="image4.jpg" alt="Recording session" class="plain-img" data-pop="left">
+      </div>
+    </div>
+
+    <!-- LONG BIO 2 -->
+    <div class="bio-text">
+      <p>Beyond the stage, Sulara is a dedicated educator and cultural ambassador. He regularly conducts masterclasses at the University of the Visual and Performing Arts in Colombo and has mentored dozens of young violinists who now perform in orchestras across Asia. His recent album, <strong>“Strings of Serendip”</strong>, features original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble, earning a nomination for Best Classical Album at the South Asian Music Awards.</p>
+      <p style="margin-top: 1rem;">With each performance, Sulara Nanayakkara continues to elevate the violin’s voice in South Asia. Whether interpreting Sibelius’ concerto or improvising on a baila tune, he remains a true master of his instrument — humble, expressive, and deeply connected to his roots. His upcoming season includes a residency at the Galle Music Festival and a collaboration with the Symphony Orchestra of Sri Lanka.</p>
+    </div>
+
+    <!-- ROW 3: two new photos with LONGER descriptions -->
+    <div class="image-row">
+      <div class="photo-item">
+        <img src="image5.jpg" alt="Concert hall" class="plain-img" data-pop="right">
+        <div class="img-description">
+          ✨ A spellbinding evening at the Lionel Wendt Theatre, Colombo. Sulara performed Brahms’ Violin Concerto with the Chamber Orchestra of Sri Lanka. The audience rose for a standing ovation as his final notes echoed through the hall — a night that critics later called “a landmark in South Asian classical performance.”
+        </div>
+      </div>
+      <div class="photo-item">
+        <img src="image6.jpg" alt="Backstage" class="plain-img" data-pop="bottom">
+        <div class="img-description">
+          🎻 Behind the velvet curtain: Sulara shares a quiet moment after the world premiere of “Rhapsody on a Theme of Sri Lanka,” a piece commissioned for him by the Ministry of Culture. In this image, he holds his 1760 Gagliano violin, reflecting on the fusion of traditional Kandyan melodies with Western baroque forms — a signature of his artistic identity.
+        </div>
+      </div>
+    </div>
+
+    <footer id="contact">
+      <p>📧 sulara@chambermusic.lk &nbsp;|&nbsp; 📞 +94 77 123 4567</p>
+      <p style="margin-top: 0.5rem;">© 2026 Sulara Nanayakkara — All images courtesy of the artist</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // Scroll reveal for images
+  const images = document.querySelectorAll('.plain-img');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
+  images.forEach(img => observer.observe(img));
+
+  // Navbar name + right-aligned links on scroll
+  const heroSection = document.querySelector('.hero');
+  const navbar = document.getElementById('navbar');
+  const navbarName = document.getElementById('navbarName');
+
+  function checkScroll() {
+    const heroBottom = heroSection.getBoundingClientRect().bottom;
+    if (heroBottom < 50) {
+      navbarName.classList.add('visible');
+      navbar.classList.add('with-name');
+    } else {
+      navbarName.classList.remove('visible');
+      navbar.classList.remove('with-name');
+    }
+  }
+
+  window.addEventListener('scroll', checkScroll);
+  window.addEventListener('resize', checkScroll);
+  checkScroll();
+</script>
+
+<!-- 
+  ========== INSTRUCTIONS ==========
+  1. Save as index.html.
+  2. Place your images in the SAME folder:
+     - landscape-hero.jpg  (desktop/tablet hero)
+     - portrait-hero.jpg   (mobile hero)
+     - image1.jpg ... image6.jpg (landscape photos)
+  3. When you scroll past the hero, "Sulara Nanayakkara" slides in from the left,
+     and the HOME/BIO/GALLERY/CONTACT links smoothly move to the right side.
+  4. All other features (pop animations, responsive hero, descriptions) remain.
+-->
+</body>
+</html>
