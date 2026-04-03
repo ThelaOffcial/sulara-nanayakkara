@@ -20,6 +20,7 @@
       overflow-x: hidden;
     }
 
+    /* === GOLD FLOATING SYMBOLS BACKGROUND (increased opacity) === */
     .animated-bg {
       position: fixed;
       top: 0;
@@ -27,27 +28,85 @@
       width: 100%;
       height: 100%;
       z-index: -2;
-      background: radial-gradient(circle at 20% 30%, #1a1a1a, #000000);
-      animation: slowShift 18s ease infinite;
+      background: #000000; /* solid black base */
+      overflow: hidden;
     }
 
-    .animated-bg::after {
-      content: '';
+    .floating-symbols {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(45deg, rgba(255,255,240,0.02) 0px, rgba(255,255,240,0.02) 2px, transparent 2px, transparent 8px);
       pointer-events: none;
     }
 
-    @keyframes slowShift {
-      0% { background: radial-gradient(circle at 20% 30%, #1e1e1e, #030303); }
-      50% { background: radial-gradient(circle at 80% 70%, #2a2a2a, #0a0a0a); }
-      100% { background: radial-gradient(circle at 20% 30%, #1e1e1e, #030303); }
+    .symbol {
+      position: absolute;
+      color: #f5bc70; /* gold base */
+      font-size: clamp(1.2rem, 4vw, 3.2rem);
+      user-select: none;
+      white-space: nowrap;
+      animation: floatSymbol 12s infinite ease-in-out;
+      will-change: transform;
+      font-family: 'Segoe UI Symbol', 'Arial', 'Courier New', monospace;
+      opacity: 0.45; /* significantly increased from ~0.08 to 0.45 */
+      text-shadow: 0 0 4px rgba(245,188,112,0.3);
     }
 
+    /* variations of gold for depth, but all gold with higher opacity */
+    .symbol:nth-child(odd) {
+      color: #ffd966;
+      opacity: 0.5;
+    }
+    .symbol:nth-child(3n) {
+      color: #e6b450;
+      opacity: 0.42;
+    }
+    .symbol:nth-child(5n+2) {
+      color: #f0bc60;
+      opacity: 0.48;
+    }
+
+    @keyframes floatSymbol {
+      0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* reverse rotation for some symbols */
+    .symbol.reverse {
+      animation: floatSymbolReverse 14s infinite ease-in-out;
+    }
+    @keyframes floatSymbolReverse {
+      0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-20vh) rotate(-360deg);
+        opacity: 0;
+      }
+    }
+
+    /* content layer remains above */
     .content {
       position: relative;
       z-index: 2;
@@ -142,7 +201,6 @@
       display: block;
     }
 
-    /* Hero text - small, tight transparent background */
     .hero-text {
       position: absolute;
       bottom: 8%;
@@ -320,7 +378,11 @@
   </style>
 </head>
 <body>
-<div class="animated-bg"></div>
+<!-- BACKGROUND: gold western symbols floating, increased opacity -->
+<div class="animated-bg">
+  <div class="floating-symbols" id="symbolContainer"></div>
+</div>
+
 <div class="content">
   <nav class="navbar" id="navbar">
     <span class="navbar-name" id="navbarName">Sulara Nanayakkara</span>
@@ -409,6 +471,48 @@
 </div>
 
 <script>
+  // === GOLDEN FLOATING SYMBOLS GENERATION ===
+  (function initFloatingSymbols() {
+    const container = document.getElementById('symbolContainer');
+    if (!container) return;
+
+    // Western musical symbols (notes, clefs, etc.)
+    const symbolsList = [
+      '♪', '♫', '♩', '♬', '𝄞', '𝄢', '𝄟', '𝆒', '𝆓', '🎵', '🎶', '𝅘𝅥𝅮', '𝅘𝅥𝅯', '𝅘𝅥𝅰', '𝆕', '𝄡', '𝆎'
+    ];
+
+    const isMobile = window.innerWidth < 768;
+    const symbolCount = isMobile ? 40 : 75;
+
+    for (let i = 0; i < symbolCount; i++) {
+      const symbol = document.createElement('div');
+      symbol.classList.add('symbol');
+      
+      const randomSymbol = symbolsList[Math.floor(Math.random() * symbolsList.length)];
+      symbol.textContent = randomSymbol;
+      
+      const leftPos = Math.random() * 100;
+      symbol.style.left = leftPos + '%';
+      
+      const size = Math.random() * 2.2 + 0.9;
+      symbol.style.fontSize = size + 'rem';
+      
+      const duration = Math.random() * 14 + 9;
+      symbol.style.animationDuration = duration + 's';
+      
+      const delay = Math.random() * 20;
+      symbol.style.animationDelay = delay + 's';
+      
+      if (Math.random() > 0.6) {
+        symbol.classList.add('reverse');
+      }
+      
+      // base opacity is set in CSS (0.45-0.5 range), no extra override needed
+      container.appendChild(symbol);
+    }
+  })();
+
+  // Image reveal observer (unchanged)
   const images = document.querySelectorAll('.plain-img');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -420,6 +524,7 @@
   }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
   images.forEach(img => observer.observe(img));
 
+  // Navbar scroll behavior (unchanged)
   const heroSection = document.querySelector('.hero');
   const navbar = document.getElementById('navbar');
   const navbarName = document.getElementById('navbarName');
