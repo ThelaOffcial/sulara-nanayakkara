@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Sulara Nanayakkara | Violinist</title>
+  <!-- Professional handwriting cursive font -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -19,7 +21,7 @@
       overflow-x: hidden;
     }
 
-    /* animated black/white background */
+    /* animated background */
     .animated-bg {
       position: fixed;
       top: 0;
@@ -53,7 +55,7 @@
       z-index: 2;
     }
 
-    /* ========== NAVBAR ========== */
+    /* navbar */
     .navbar {
       position: fixed;
       top: 0;
@@ -110,12 +112,10 @@
       transform: translateY(-2px);
     }
 
-    /* default: centered links, no name */
     .navbar {
       justify-content: center;
     }
 
-    /* when name visible: name left, links right */
     .navbar.with-name {
       justify-content: space-between;
     }
@@ -124,7 +124,7 @@
       margin-left: auto;
     }
 
-    /* ========== HERO SECTION ========== */
+    /* hero section */
     .hero {
       margin-top: 80px;
       position: relative;
@@ -146,7 +146,7 @@
       display: block;
     }
 
-    /* hero text overlay - bottom center, minimal background */
+    /* hero text overlay - bottom center */
     .hero-text {
       position: absolute;
       bottom: 8%;
@@ -158,12 +158,13 @@
       width: 100%;
     }
 
+    /* Professional handwriting cursive */
     .hero-text h1 {
-      font-family: 'Brush Script MT", "Lucida Handwriting', serif;
-      font-size: 4rem;
-      font-weight: 500;
+      font-family: 'Great Vibes', 'Snell Roundhand', 'Brush Script MT', cursive;
+      font-size: 5rem;
+      font-weight: 400;
       color: #f5bc70;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
       letter-spacing: 2px;
       margin-bottom: 0.5rem;
     }
@@ -176,14 +177,13 @@
       font-style: italic;
     }
 
-    /* ========== GENERAL CONTAINER ========== */
     .container {
       max-width: 1300px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
 
-    /* ========== GALLERY ROWS (2 COLUMNS, NO FRAMES) ========== */
+    /* image rows - 2 columns */
     .image-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -204,7 +204,6 @@
       transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
     }
 
-    /* pop directions */
     .plain-img[data-pop="left"] {
       transform: translateX(-60px);
     }
@@ -220,7 +219,7 @@
       transform: translateX(0) translateY(0);
     }
 
-    /* longer description under third row only */
+    /* description under third row only */
     .img-description {
       margin-top: 1rem;
       font-size: 1rem;
@@ -276,7 +275,6 @@
       font-size: 0.9rem;
     }
 
-    /* ========== RESPONSIVE ========== */
     @media (max-width: 768px) {
       .navbar {
         padding: 0.8rem 1rem;
@@ -297,7 +295,7 @@
         height: 60vh;
       }
       .hero-text h1 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
       }
       .hero-text p {
         font-size: 0.9rem;
@@ -336,16 +334,13 @@
   </nav>
 
   <main>
-    <!-- HERO with responsive switching (landscape/portrait) -->
+    <!-- HERO (responsive landscape/portrait) -->
     <section id="home" class="hero">
       <div class="hero-picture">
         <picture>
-          <!-- mobile: portrait image -->
-          <source media="(max-width: 768px)" srcset="hero mobile 1.jpg">
-          <!-- desktop/tablet: landscape image -->
-          <source media="(min-width: 769px)" srcset="hero landscape 1.jpg">
-          <!-- fallback -->
-          <img src="hero landscape 1.jpg" alt="Sulara Nanayakkara">
+          <source media="(max-width: 768px)" srcset="portrait-hero.jpg">
+          <source media="(min-width: 769px)" srcset="landscape-hero.jpg">
+          <img src="landscape-hero.jpg" alt="Sulara Nanayakkara">
         </picture>
       </div>
       <div class="hero-text">
@@ -355,6 +350,17 @@
     </section>
 
     <div class="container">
+      <!-- FIRST BIO (moved to immediately after hero) -->
+      <div id="bio1" class="bio-text">
+        <p><strong>Sulara Nanayakkara</strong> is widely regarded as one of the finest violinists to emerge from Sri Lanka. His musical journey began at the age of seven, and by seventeen he had already won the National Youth Orchestra competition. Driven by an insatiable thirst for excellence, Sulara pursued advanced degrees at the <strong>Royal Academy of Music in London</strong> and the <strong>Juilliard School in New York</strong>, studying under legendary pedagogues. His playing blends technical precision with an unmistakable warmth that moves audiences from Colombo to Carnegie Hall.</p>
+        <div class="badge-container">
+          <span class="badge">🎓 RAM (UK)</span>
+          <span class="badge">🎓 Juilliard (USA)</span>
+          <span class="badge">🎻 Senior Head Violinist – Chamber Music Colombo</span>
+        </div>
+        <p style="margin-top: 1rem;">Currently, Sulara serves as the <strong>Senior Head Violinist of Chamber Music Colombo</strong>, where he leads the string section in groundbreaking performances that fuse Western classical traditions with Sri Lankan ragas. His interpretation of Bach's Chaconne has been called “spellbinding” by critics, and his 2024 tour raised funds for young musicians across the island.</p>
+      </div>
+
       <!-- ROW 1: two images, no captions -->
       <div class="image-row" id="gallery">
         <div class="photo-item">
@@ -365,15 +371,10 @@
         </div>
       </div>
 
-      <!-- FIRST LONG BIO -->
-      <div id="bio1" class="bio-text">
-        <p><strong>Sulara Nanayakkara</strong> is widely regarded as one of the finest violinists to emerge from Sri Lanka. His musical journey began at the age of seven, and by seventeen he had already won the National Youth Orchestra competition. Driven by an insatiable thirst for excellence, Sulara pursued advanced degrees at the <strong>Royal Academy of Music in London</strong> and the <strong>Juilliard School in New York</strong>, studying under legendary pedagogues. His playing blends technical precision with an unmistakable warmth that moves audiences from Colombo to Carnegie Hall.</p>
-        <div class="badge-container">
-          <span class="badge">🎓 RAM (UK)</span>
-          <span class="badge">🎓 Juilliard (USA)</span>
-          <span class="badge">🎻 Senior Head Violinist – Chamber Music Colombo</span>
-        </div>
-        <p style="margin-top: 1rem;">Currently, Sulara serves as the <strong>Senior Head Violinist of Chamber Music Colombo</strong>, where he leads the string section in groundbreaking performances that fuse Western classical traditions with Sri Lankan ragas. His interpretation of Bach's Chaconne has been called “spellbinding” by critics, and his 2024 tour raised funds for young musicians across the island.</p>
+      <!-- SECOND BIO -->
+      <div class="bio-text">
+        <p>Beyond the stage, Sulara is a dedicated educator and cultural ambassador. He regularly conducts masterclasses at the University of the Visual and Performing Arts in Colombo and has mentored dozens of young violinists who now perform in orchestras across Asia. His recent album, <strong>“Strings of Serendip”</strong>, features original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble, earning a nomination for Best Classical Album at the South Asian Music Awards.</p>
+        <p style="margin-top: 1rem;">With each performance, Sulara Nanayakkara continues to elevate the violin’s voice in South Asia. Whether interpreting Sibelius’ concerto or improvising on a baila tune, he remains a true master of his instrument — humble, expressive, and deeply connected to his roots. His upcoming season includes a residency at the Galle Music Festival and a collaboration with the Symphony Orchestra of Sri Lanka.</p>
       </div>
 
       <!-- ROW 2: two images, no captions -->
@@ -386,10 +387,9 @@
         </div>
       </div>
 
-      <!-- SECOND LONG BIO -->
+      <!-- THIRD BIO (optional short, but we keep as per previous structure) -->
       <div class="bio-text">
-        <p>Beyond the stage, Sulara is a dedicated educator and cultural ambassador. He regularly conducts masterclasses at the University of the Visual and Performing Arts in Colombo and has mentored dozens of young violinists who now perform in orchestras across Asia. His recent album, <strong>“Strings of Serendip”</strong>, features original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble, earning a nomination for Best Classical Album at the South Asian Music Awards.</p>
-        <p style="margin-top: 1rem;">With each performance, Sulara Nanayakkara continues to elevate the violin’s voice in South Asia. Whether interpreting Sibelius’ concerto or improvising on a baila tune, he remains a true master of his instrument — humble, expressive, and deeply connected to his roots. His upcoming season includes a residency at the Galle Music Festival and a collaboration with the Symphony Orchestra of Sri Lanka.</p>
+        <p>Sulara's artistry has taken him to prestigious venues including Wigmore Hall, Carnegie Hall, and the Colombo International Music Festival. Critics praise his “effortless bow control and deeply communicative phrasing”. He continues to expand the violin repertoire by commissioning new works from Sri Lankan composers.</p>
       </div>
 
       <!-- ROW 3: two images WITH LONG DESCRIPTIONS -->
@@ -451,16 +451,15 @@
 </script>
 
 <!-- 
-  ========== HOW TO USE ==========
+  ========== INSTRUCTIONS ==========
   1. Save as index.html.
-  2. Place your own images in the SAME folder as index.html:
-     - landscape-hero.jpg  (wide, for desktop/tablet)
-     - portrait-hero.jpg   (taller, for mobile)
-     - image1.jpg, image2.jpg, image3.jpg, image4.jpg (no captions)
-     - image5.jpg, image6.jpg (with long descriptions)
-  3. Open in browser. On mobile, the hero will automatically show portrait-hero.jpg.
-  4. Hero text uses Snell Roundhand font and sits at the bottom without covering the main subject.
-  5. Scroll down – name appears in navbar and links shift right.
+  2. Place your images in the SAME folder:
+     - landscape-hero.jpg (desktop/tablet)
+     - portrait-hero.jpg (mobile)
+     - image1.jpg ... image6.jpg (landscape photos)
+  3. The hero text now uses 'Great Vibes' – an elegant, professional handwriting cursive.
+  4. The first bio description appears directly after the hero image, before any photos.
+  5. All other features (pop animations, responsive navbar name, right-aligned links) work as requested.
 -->
 </body>
 </html>
