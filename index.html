@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Sulara Nanayakkara | Violinist</title>
-  <!-- Professional handwriting cursive font -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     * {
@@ -21,7 +20,6 @@
       overflow-x: hidden;
     }
 
-    /* animated background */
     .animated-bg {
       position: fixed;
       top: 0;
@@ -55,7 +53,6 @@
       z-index: 2;
     }
 
-    /* navbar */
     .navbar {
       position: fixed;
       top: 0;
@@ -124,7 +121,6 @@
       margin-left: auto;
     }
 
-    /* hero section */
     .hero {
       margin-top: 80px;
       position: relative;
@@ -146,34 +142,36 @@
       display: block;
     }
 
-    /* hero text overlay - bottom center */
+    /* Hero text - small, tight transparent background */
     .hero-text {
       position: absolute;
       bottom: 8%;
-      left: 0;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-      padding: 2rem 1rem 1.5rem;
-      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      display: inline-block;
+      white-space: nowrap;
     }
 
-    /* Professional handwriting cursive */
     .hero-text h1 {
       font-family: 'Great Vibes', 'Snell Roundhand', 'Brush Script MT', cursive;
       font-size: 5rem;
       font-weight: 400;
       color: #f5bc70;
-      text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
       letter-spacing: 2px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
     }
 
     .hero-text p {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #fff0e0;
-      text-shadow: 1px 1px 4px black;
+      text-shadow: 1px 1px 2px black;
       font-style: italic;
     }
 
@@ -183,7 +181,6 @@
       padding: 0 1.5rem;
     }
 
-    /* image rows - 2 columns */
     .image-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -219,7 +216,6 @@
       transform: translateX(0) translateY(0);
     }
 
-    /* description under third row only */
     .img-description {
       margin-top: 1rem;
       font-size: 1rem;
@@ -232,7 +228,6 @@
       border-radius: 12px;
     }
 
-    /* bio sections */
     .bio-text {
       background: rgba(10,10,10,0.55);
       backdrop-filter: blur(4px);
@@ -294,11 +289,15 @@
       .hero-picture {
         height: 60vh;
       }
+      .hero-text {
+        padding: 0.3rem 0.8rem;
+        bottom: 5%;
+      }
       .hero-text h1 {
-        font-size: 2.8rem;
+        font-size: 2.2rem;
       }
       .hero-text p {
-        font-size: 0.9rem;
+        font-size: 0.7rem;
       }
       .image-row {
         gap: 1rem;
@@ -334,7 +333,6 @@
   </nav>
 
   <main>
-    <!-- HERO (responsive landscape/portrait) -->
     <section id="home" class="hero">
       <div class="hero-picture">
         <picture>
@@ -350,7 +348,6 @@
     </section>
 
     <div class="container">
-      <!-- FIRST BIO (moved to immediately after hero) -->
       <div id="bio1" class="bio-text">
         <p><strong>Sulara Nanayakkara</strong> is widely regarded as one of the finest violinists to emerge from Sri Lanka. His musical journey began at the age of seven, and by seventeen he had already won the National Youth Orchestra competition. Driven by an insatiable thirst for excellence, Sulara pursued advanced degrees at the <strong>Royal Academy of Music in London</strong> and the <strong>Juilliard School in New York</strong>, studying under legendary pedagogues. His playing blends technical precision with an unmistakable warmth that moves audiences from Colombo to Carnegie Hall.</p>
         <div class="badge-container">
@@ -361,38 +358,33 @@
         <p style="margin-top: 1rem;">Currently, Sulara serves as the <strong>Senior Head Violinist of Chamber Music Colombo</strong>, where he leads the string section in groundbreaking performances that fuse Western classical traditions with Sri Lankan ragas. His interpretation of Bach's Chaconne has been called “spellbinding” by critics, and his 2024 tour raised funds for young musicians across the island.</p>
       </div>
 
-      <!-- ROW 1: two images, no captions -->
       <div class="image-row" id="gallery">
         <div class="photo-item">
-          <img src="image1.jpg" alt="Performance" class="plain-img" data-pop="left">
+          <img src="image3.jpg" alt="Performance" class="plain-img" data-pop="left">
         </div>
         <div class="photo-item">
-          <img src="image2.jpg" alt="Concert" class="plain-img" data-pop="right">
+          <img src="image4.jpg" alt="Concert" class="plain-img" data-pop="right">
         </div>
       </div>
 
-      <!-- SECOND BIO -->
       <div class="bio-text">
         <p>Beyond the stage, Sulara is a dedicated educator and cultural ambassador. He regularly conducts masterclasses at the University of the Visual and Performing Arts in Colombo and has mentored dozens of young violinists who now perform in orchestras across Asia. His recent album, <strong>“Strings of Serendip”</strong>, features original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble, earning a nomination for Best Classical Album at the South Asian Music Awards.</p>
         <p style="margin-top: 1rem;">With each performance, Sulara Nanayakkara continues to elevate the violin’s voice in South Asia. Whether interpreting Sibelius’ concerto or improvising on a baila tune, he remains a true master of his instrument — humble, expressive, and deeply connected to his roots. His upcoming season includes a residency at the Galle Music Festival and a collaboration with the Symphony Orchestra of Sri Lanka.</p>
       </div>
 
-      <!-- ROW 2: two images, no captions -->
       <div class="image-row">
         <div class="photo-item">
-          <img src="image3.jpg" alt="Masterclass" class="plain-img" data-pop="bottom">
+          <img src="image2.jpg" alt="Masterclass" class="plain-img" data-pop="bottom">
         </div>
         <div class="photo-item">
-          <img src="image4.jpg" alt="Recording session" class="plain-img" data-pop="left">
+          <img src="hero landscape 2.jpg" alt="Recording session" class="plain-img" data-pop="left">
         </div>
       </div>
 
-      <!-- THIRD BIO (optional short, but we keep as per previous structure) -->
       <div class="bio-text">
         <p>Sulara's artistry has taken him to prestigious venues including Wigmore Hall, Carnegie Hall, and the Colombo International Music Festival. Critics praise his “effortless bow control and deeply communicative phrasing”. He continues to expand the violin repertoire by commissioning new works from Sri Lankan composers.</p>
       </div>
 
-      <!-- ROW 3: two images WITH LONG DESCRIPTIONS -->
       <div class="image-row">
         <div class="photo-item">
           <img src="image5.jpg" alt="Concert hall" class="plain-img" data-pop="right">
@@ -401,7 +393,7 @@
           </div>
         </div>
         <div class="photo-item">
-          <img src="hero landscape 2.jpg" alt="Backstage" class="plain-img" data-pop="bottom">
+          <img src="image1.jpg" alt="Backstage" class="plain-img" data-pop="bottom">
           <div class="img-description">
             🎻 Behind the velvet curtain: Sulara shares a quiet moment after the world premiere of “Rhapsody on a Theme of Sri Lanka,” a piece commissioned for him by the Ministry of Culture. In this image, he holds his 1760 Gagliano violin, reflecting on the fusion of traditional Kandyan melodies with Western baroque forms — a signature of his artistic identity.
           </div>
@@ -417,7 +409,6 @@
 </div>
 
 <script>
-  // scroll reveal for images
   const images = document.querySelectorAll('.plain-img');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -429,7 +420,6 @@
   }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
   images.forEach(img => observer.observe(img));
 
-  // navbar name + right-aligned links on scroll
   const heroSection = document.querySelector('.hero');
   const navbar = document.getElementById('navbar');
   const navbarName = document.getElementById('navbarName');
@@ -449,17 +439,5 @@
   window.addEventListener('resize', checkScroll);
   checkScroll();
 </script>
-
-<!-- 
-  ========== INSTRUCTIONS ==========
-  1. Save as index.html.
-  2. Place your images in the SAME folder:
-     - landscape-hero.jpg (desktop/tablet)
-     - portrait-hero.jpg (mobile)
-     - image1.jpg ... image6.jpg (landscape photos)
-  3. The hero text now uses 'Great Vibes' – an elegant, professional handwriting cursive.
-  4. The first bio description appears directly after the hero image, before any photos.
-  5. All other features (pop animations, responsive navbar name, right-aligned links) work as requested.
--->
 </body>
 </html>
