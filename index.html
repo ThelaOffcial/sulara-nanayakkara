@@ -7,7 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -17,43 +21,60 @@
       overflow-x: hidden;
     }
 
-    /* === PRELOADER === */
+    /* === CUSTOM LOADING ANIMATION (PRELOADER) === */
     .preloader {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: opacity 0.6s ease, visibility 0.6s ease;
+      backdrop-filter: blur(0px);
     }
-    .preloader.fade-out { opacity: 0; visibility: hidden; }
-    .loader-content { text-align: center; }
+
+    .preloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
     .loader-symbols {
       font-size: 3rem;
       letter-spacing: 0.5rem;
       color: #f5bc70;
       animation: pulseLoader 1.2s infinite ease-in-out;
     }
+
     .loader-symbols span {
       display: inline-block;
       animation: floatLoader 0.8s infinite alternate;
     }
+
     .loader-symbols span:nth-child(1) { animation-delay: 0s; }
     .loader-symbols span:nth-child(2) { animation-delay: 0.15s; }
     .loader-symbols span:nth-child(3) { animation-delay: 0.3s; }
     .loader-symbols span:nth-child(4) { animation-delay: 0.45s; }
     .loader-symbols span:nth-child(5) { animation-delay: 0.6s; }
+
     @keyframes floatLoader {
-      0%   { transform: translateY(0); opacity: 0.4; }
+      0% { transform: translateY(0px); opacity: 0.4; }
       100% { transform: translateY(-15px); opacity: 1; }
     }
+
     @keyframes pulseLoader {
-      0%,100% { text-shadow: 0 0 0 rgba(245,188,112,0); }
-      50%      { text-shadow: 0 0 12px rgba(245,188,112,0.8); }
+      0% { text-shadow: 0 0 0px rgba(245,188,112,0); }
+      50% { text-shadow: 0 0 12px rgba(245,188,112,0.8); }
+      100% { text-shadow: 0 0 0px rgba(245,188,112,0); }
     }
+
     .loader-text {
       margin-top: 1rem;
       font-family: 'Montserrat', sans-serif;
@@ -62,21 +83,27 @@
       letter-spacing: 2px;
     }
 
-    /* === FLOATING BACKGROUND SYMBOLS === */
+    /* === GOLD FLOATING SYMBOLS BACKGROUND === */
     .animated-bg {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -2;
-      background: #000;
+      background: #000000;
       overflow: hidden;
     }
+
     .floating-symbols {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
     }
+
     .symbol {
       position: absolute;
       color: #f5bc70;
@@ -85,28 +112,33 @@
       white-space: nowrap;
       animation: floatSymbol 12s infinite ease-in-out;
       will-change: transform;
-      font-family: 'Segoe UI Symbol', monospace;
+      font-family: 'Segoe UI Symbol', 'Arial', 'Courier New', monospace;
       opacity: 0.45;
       text-shadow: 0 0 4px rgba(245,188,112,0.3);
     }
-    .symbol:nth-child(odd)  { color: #ffd966; opacity: 0.5; }
-    .symbol:nth-child(3n)   { color: #e6b450; opacity: 0.42; }
+
+    .symbol:nth-child(odd) { color: #ffd966; opacity: 0.5; }
+    .symbol:nth-child(3n) { color: #e6b450; opacity: 0.42; }
     .symbol:nth-child(5n+2) { color: #f0bc60; opacity: 0.48; }
+
     @keyframes floatSymbol {
-      0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
-      10%  { opacity: 0.6; }
-      90%  { opacity: 0.5; }
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.5; }
       100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
     }
-    .symbol.reverse { animation: floatSymbolReverse 14s infinite ease-in-out; }
+
+    .symbol.reverse {
+      animation: floatSymbolReverse 14s infinite ease-in-out;
+    }
     @keyframes floatSymbolReverse {
-      0%   { transform: translateY(110vh) rotate(0deg);    opacity: 0; }
-      10%  { opacity: 0.6; }
-      90%  { opacity: 0.5; }
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.5; }
       100% { transform: translateY(-20vh) rotate(-360deg); opacity: 0; }
     }
 
-    /* === NAVBAR === */
+    /* === PROFESSIONAL NAVBAR === */
     .navbar {
       position: fixed;
       top: 20px;
@@ -118,21 +150,22 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.8rem 2rem;
-      background: rgba(0,0,0,0.92);
+      background: rgba(0, 0, 0, 0.92);
       backdrop-filter: blur(12px);
       border-radius: 60px;
       z-index: 1000;
       transition: all 0.3s ease;
-      border: 1px solid rgba(245,188,112,0.3);
+      border: 1px solid rgba(245, 188, 112, 0.3);
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      flex-wrap: nowrap;
     }
+
     .navbar.scrolled {
-      background: rgba(0,0,0,0.96);
-      border-color: rgba(245,188,112,0.6);
+      background: rgba(0, 0, 0, 0.96);
+      border-color: rgba(245, 188, 112, 0.6);
       top: 10px;
       width: calc(100% - 30px);
     }
+
     .navbar-brand {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
@@ -143,14 +176,14 @@
       color: transparent;
       letter-spacing: 1px;
       white-space: nowrap;
-      flex-shrink: 0;
     }
+
     .nav-links {
       display: flex;
       gap: 2rem;
       align-items: center;
-      flex-shrink: 0;
     }
+
     .nav-link {
       font-family: 'Montserrat', sans-serif;
       font-size: 0.95rem;
@@ -161,57 +194,120 @@
       padding: 0.4rem 0;
       position: relative;
       transition: color 0.3s ease;
-      white-space: nowrap;
     }
+
     .nav-link::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 0;
+      bottom: 0;
+      left: 0;
       width: 0%;
       height: 2px;
       background: #f5bc70;
-      transition: width 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
+      transition: width 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
-    .nav-link:hover::after { width: 100%; }
-    .nav-link:hover { color: #f5bc70; }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: #f5bc70;
+    }
+
     .nav-link.contact-highlight {
-      background: rgba(245,188,112,0.2);
+      background: rgba(245, 188, 112, 0.2);
       padding: 0.4rem 1.2rem;
       border-radius: 40px;
-      border: 1px solid rgba(245,188,112,0.5);
+      border: 1px solid rgba(245, 188, 112, 0.5);
       transition: all 0.3s ease;
     }
+
     .nav-link.contact-highlight:hover {
-      background: rgba(245,188,112,0.35);
+      background: rgba(245, 188, 112, 0.35);
       border-color: #f5bc70;
       transform: translateY(-2px);
     }
-    .nav-link.contact-highlight::after { display: none; }
 
-    /* Mobile navbar — single row, no wrapping */
+    .nav-link.contact-highlight::after {
+      display: none;
+    }
+
+    /* === HAMBURGER MENU STYLES === */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      z-index: 1001;
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    .hamburger .bar {
+      width: 25px;
+      height: 2px;
+      background-color: #f5bc70;
+      transition: 0.3s;
+    }
+
+    /* Overlay background */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+      backdrop-filter: blur(4px);
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
     @media (max-width: 768px) {
-      .navbar {
-        top: 10px;
-        padding: 0.5rem 1.2rem;
-        border-radius: 50px;
-        background: rgba(0,0,0,0.94);
-        flex-wrap: nowrap;
-        width: calc(100% - 24px);
+      .navbar { top: 10px; padding: 0.8rem 1.5rem; border-radius: 50px; background: rgba(0,0,0,0.94); }
+      .navbar-brand { font-size: 1.1rem; }
+      
+      .hamburger {
+        display: flex; /* Show burger on mobile */
       }
-      .navbar-brand { font-size: 0.85rem; }
-      .nav-links { gap: 0.7rem; }
-      .nav-link { font-size: 0.68rem; letter-spacing: 0.5px; }
-      .nav-link.contact-highlight { padding: 0.3rem 0.8rem; }
-    }
-    @media (max-width: 400px) {
-      .navbar { padding: 0.45rem 0.9rem; }
-      .navbar-brand { font-size: 0.75rem; }
-      .nav-link { font-size: 0.6rem; letter-spacing: 0.3px; }
-      .nav-links { gap: 0.4rem; }
-      .nav-link.contact-highlight { padding: 0.25rem 0.55rem; }
+
+      .nav-links {
+        position: fixed;
+        right: -100%; /* Hidden by default */
+        top: 0;
+        flex-direction: column;
+        background: rgba(10, 10, 10, 0.98);
+        width: 70%; /* Take only part of display */
+        height: 100vh;
+        justify-content: center;
+        gap: 2.5rem;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
+        border-left: 1px solid rgba(245, 188, 112, 0.3);
+      }
+
+      .nav-links.active {
+        right: 0; /* Slide in */
+      }
+
+      .nav-link { font-size: 1.1rem; }
     }
 
-    /* === HERO === */
+    /* Smooth scrolling for page links */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* === HERO SECTION WITH ANIMATIONS === */
     .hero {
       margin-top: 100px;
       position: relative;
@@ -219,16 +315,20 @@
       min-height: 90vh;
       overflow: hidden;
     }
+
     .hero-picture {
       width: 100%;
       height: 90vh;
-      animation: heroImageAnim 1.4s cubic-bezier(0.2,0.9,0.4,1.1) forwards;
+      animation: heroImageAnim 1.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
       opacity: 0;
+      transform: scale(1.02);
     }
+
     @keyframes heroImageAnim {
-      0%   { opacity: 0; transform: scale(1.05); }
+      0% { opacity: 0; transform: scale(1.05); }
       100% { opacity: 1; transform: scale(1); }
     }
+
     .hero-picture picture,
     .hero-picture img {
       width: 100%;
@@ -237,128 +337,111 @@
       display: block;
     }
 
-    /* Hero text overlay */
     .hero-text {
       position: absolute;
       bottom: 10%;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
-      background: rgba(0,0,0,0.52);
-      backdrop-filter: blur(10px);
-      padding: 1.6rem 3.5rem 1.8rem;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+      padding: 0.8rem 1.8rem;
       border-radius: 3rem;
-      border: 1px solid rgba(245,188,112,0.3);
       display: inline-block;
       white-space: nowrap;
-      animation: fadeInUp 1s ease 0.4s forwards;
+      animation: fadeInUp 1s ease 0.3s forwards;
       opacity: 0;
+      transform: translateX(-50%) translateY(30px);
     }
+
     @keyframes fadeInUp {
-      0%   { opacity: 0; transform: translateX(-50%) translateY(30px); }
+      0% { opacity: 0; transform: translateX(-50%) translateY(30px); }
       100% { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
-    /* =============================================
-       SVG CURSIVE SIGNATURE — stroke draw effect
-       The text is rendered as an outlined stroke,
-       then stroke-dashoffset animates from full
-       length to 0 (draw-on effect), then JS adds
-       .filled to fade the gold fill in afterward.
-    ============================================= */
-    .hero-svg-title {
-      display: block;
-      width: clamp(300px, 58vw, 760px);
-      height: auto;
-      margin: 0 auto 0.6rem;
-      overflow: visible;
+    .hero-text h1 {
+      font-family: 'Great Vibes', 'Snell Roundhand', 'Brush Script MT', cursive;
+      font-size: 5rem;
+      font-weight: 400;
+      color: #f5bc70;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+      letter-spacing: 2px;
+      margin-bottom: 0.2rem;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #f5bc70;
+      width: 0;
+      animation: typing 1.8s steps(20, end) forwards, blinkCursor 0.75s step-end infinite;
     }
 
-    /* The SVG text: stroke-only until fill fades in */
-    #heroName {
-      font-family: 'Great Vibes', cursive;
-      font-size: 110px;
-      fill: transparent;
-      stroke: #f5bc70;
-      stroke-width: 1.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 0 8px rgba(245,188,112,0.55));
-      /* Path-draw animation */
-      stroke-dasharray: 4000;
-      stroke-dashoffset: 4000;
-      animation: drawSignature 2.8s cubic-bezier(0.4,0,0.2,1) 0.9s forwards;
-    }
-    @keyframes drawSignature {
-      0%   { stroke-dashoffset: 4000; }
-      100% { stroke-dashoffset: 0; }
-    }
-    /* Once JS adds .filled, gold fill fades in over 1s */
-    #heroName.filled {
-      fill: #f5bc70;
-      transition: fill 1s ease 0s;
-      stroke-width: 0.4;
+    @keyframes typing {
+      0% { width: 0; }
+      100% { width: 100%; }
     }
 
-    /* Subtitle */
-    .hero-subtitle {
+    @keyframes blinkCursor {
+      0%, 100% { border-color: #f5bc70; }
+      50% { border-color: transparent; }
+    }
+
+    .hero-text p {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       color: #fff0e0;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+      text-shadow: 1px 1px 2px black;
       font-style: italic;
-      letter-spacing: 2.5px;
-      opacity: 0;
-      animation: fadeInSub 1s ease 4s forwards;
-    }
-    @keyframes fadeInSub {
-      0%   { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
+      margin-top: 0.3rem;
+      letter-spacing: 1px;
     }
 
     @media (max-width: 768px) {
       .hero { margin-top: 80px; }
-      .hero-picture { height: 65vh; }
-      .hero-text {
-        padding: 1rem 1.8rem 1.3rem;
-        border-radius: 2rem;
-        bottom: 7%;
-        white-space: nowrap;
-      }
-      .hero-svg-title { width: clamp(200px, 82vw, 420px); }
-      #heroName { font-size: 72px; }
-      .hero-subtitle { font-size: 1rem; letter-spacing: 1.5px; }
-    }
-    @media (max-width: 480px) {
-      #heroName { font-size: 56px; }
-      .hero-subtitle { font-size: 0.82rem; letter-spacing: 1px; }
-      .hero-text { padding: 0.8rem 1.2rem 1rem; }
+      .hero-picture { height: 60vh; }
+      .hero-text { padding: 0.4rem 1rem; bottom: 6%; white-space: nowrap; }
+      .hero-text h1 { font-size: 2.2rem; animation: typing 1.5s steps(14, end) forwards; white-space: nowrap; }
+      .hero-text p { font-size: 0.9rem; }
     }
 
-    /* === CONTENT === */
+    @media (max-width: 480px) {
+      .hero-text h1 { font-size: 1.8rem; }
+      .hero-text p { font-size: 0.75rem; }
+    }
+
+    /* === REST OF PAGE STYLES === */
     .container {
       max-width: 1300px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
+
     .image-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
       margin: 3rem 0;
     }
-    .photo-item { display: flex; flex-direction: column; }
+
+    .photo-item {
+      display: flex;
+      flex-direction: column;
+    }
+
     .plain-img {
       width: 100%;
       height: auto;
       display: block;
       opacity: 0;
-      transition: opacity 0.7s cubic-bezier(0.2,0.9,0.4,1.1), transform 0.6s ease;
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
     }
-    .plain-img[data-pop="left"]   { transform: translateX(-60px); }
-    .plain-img[data-pop="right"]  { transform: translateX(60px); }
+
+    .plain-img[data-pop="left"] { transform: translateX(-60px); }
+    .plain-img[data-pop="right"] { transform: translateX(60px); }
     .plain-img[data-pop="bottom"] { transform: translateY(60px); }
-    .plain-img.reveal { opacity: 1; transform: translateX(0) translateY(0); }
+
+    .plain-img.reveal {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
 
     .img-description {
       margin-top: 1rem;
@@ -371,6 +454,7 @@
       padding: 0.8rem;
       border-radius: 12px;
     }
+
     .bio-text {
       background: rgba(10,10,10,0.55);
       backdrop-filter: blur(4px);
@@ -382,7 +466,12 @@
       color: #f5efe7;
       border-left: 3px solid #f5bc70;
     }
-    .bio-text strong { color: #f5bc70; font-weight: 600; }
+
+    .bio-text strong {
+      color: #f5bc70;
+      font-weight: 600;
+    }
+
     .badge-container {
       display: flex;
       justify-content: center;
@@ -390,6 +479,7 @@
       flex-wrap: wrap;
       margin: 1.5rem 0 0.5rem;
     }
+
     .badge {
       background: rgba(245,188,112,0.15);
       padding: 0.4rem 1.2rem;
@@ -398,20 +488,24 @@
       color: #f5bc70;
     }
 
-    /* === FOOTER === */
     footer {
       text-align: center;
       padding: 2rem 1.5rem;
       margin-top: 3rem;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(5px);
       border-top: 1px solid rgba(245,188,112,0.3);
       font-size: 0.9rem;
       transform: translateY(30px);
       opacity: 0;
-      transition: transform 0.7s cubic-bezier(0.2,0.9,0.4,1.1), opacity 0.7s ease;
+      transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.7s ease;
     }
-    footer.reveal-footer { transform: translateY(0); opacity: 1; }
+
+    footer.reveal-footer {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     .social-icons {
       display: flex;
       justify-content: center;
@@ -419,23 +513,27 @@
       margin-bottom: 1.2rem;
       flex-wrap: wrap;
     }
+
     .social-icons a {
       color: #f5bc70;
       font-size: 1.8rem;
       transition: all 0.3s ease;
       display: inline-block;
     }
+
     .social-icons a:hover {
       color: #ffdd99;
       transform: translateY(-5px);
       text-shadow: 0 0 8px rgba(245,188,112,0.6);
     }
+
     .footer-credit {
       font-family: 'Montserrat', sans-serif;
       font-size: 0.85rem;
       color: #d4c5a5;
       margin-top: 0.8rem;
     }
+
     .footer-credit a {
       color: #f5bc70;
       text-decoration: none;
@@ -443,8 +541,17 @@
       transition: 0.2s;
       border-bottom: 1px dotted rgba(245,188,112,0.5);
     }
-    .footer-credit a:hover { color: #ffdd99; border-bottom-color: #ffdd99; }
-    .copyright { margin-top: 1rem; font-size: 0.75rem; opacity: 0.7; }
+
+    .footer-credit a:hover {
+      color: #ffdd99;
+      border-bottom-color: #ffdd99;
+    }
+
+    .copyright {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
 
     @media (max-width: 768px) {
       .bio-text { padding: 1.2rem 1.5rem; font-size: 1rem; }
@@ -455,7 +562,6 @@
 </head>
 <body>
 
-<!-- PRELOADER -->
 <div class="preloader" id="preloader">
   <div class="loader-content">
     <div class="loader-symbols">
@@ -465,16 +571,23 @@
   </div>
 </div>
 
-<!-- FLOATING GOLD BACKGROUND -->
 <div class="animated-bg">
   <div class="floating-symbols" id="symbolContainer"></div>
 </div>
 
 <div class="content">
-  <!-- NAVBAR -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
   <nav class="navbar" id="navbar">
     <div class="navbar-brand">Sulara Nanayakkara</div>
-    <div class="nav-links">
+    
+    <button class="hamburger" id="hamburger">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </button>
+
+    <div class="nav-links" id="navLinks">
       <a href="#home" class="nav-link">HOME</a>
       <a href="#bio1" class="nav-link">BIO</a>
       <a href="#gallery" class="nav-link">GALLERY</a>
@@ -491,13 +604,9 @@
           <img src="hero landscape 1.jpg" alt="Sulara Nanayakkara">
         </picture>
       </div>
-
-      <!-- Hero overlay with cursive SVG signature animation -->
       <div class="hero-text">
-        <svg class="hero-svg-title" viewBox="0 0 760 140" xmlns="http://www.w3.org/2000/svg" aria-label="Sulara Nanayakkara">
-          <text id="heroName" x="380" y="112" text-anchor="middle">Sulara Nanayakkara</text>
-        </svg>
-        <p class="hero-subtitle">Violinist &nbsp;·&nbsp; Sri Lanka's lyrical voice</p>
+        <h1 id="typewriterTitle">Sulara Nanayakkara</h1>
+        <p>Violinist | Sri Lanka’s lyrical voice</p>
       </div>
     </section>
 
@@ -509,7 +618,7 @@
           <span class="badge">🎓 Juilliard (USA)</span>
           <span class="badge">🎻 Senior Head Violinist – Chamber Music Colombo</span>
         </div>
-        <p style="margin-top:1rem;">Currently, Sulara serves as the <strong>Senior Head Violinist of Chamber Music Colombo</strong>, where he leads the string section in groundbreaking performances that fuse Western classical traditions with Sri Lankan ragas. His interpretation of Bach's Chaconne has been called "spellbinding" by critics, and his 2024 tour raised funds for young musicians across the island.</p>
+        <p style="margin-top: 1rem;">Currently, Sulara serves as the <strong>Senior Head Violinist of Chamber Music Colombo</strong>, where he leads the string section in groundbreaking performances that fuse Western classical traditions with Sri Lankan ragas. His interpretation of Bach's Chaconne has been called “spellbinding” by critics, and his 2024 tour raised funds for young musicians across the island.</p>
       </div>
 
       <div class="image-row" id="gallery">
@@ -522,8 +631,8 @@
       </div>
 
       <div class="bio-text">
-        <p>Beyond the stage, Sulara is a dedicated educator and cultural ambassador. He regularly conducts masterclasses at the University of the Visual and Performing Arts in Colombo and has mentored dozens of young violinists who now perform in orchestras across Asia. His recent album, <strong>"Strings of Serendip"</strong>, features original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble, earning a nomination for Best Classical Album at the South Asian Music Awards.</p>
-        <p style="margin-top:1rem;">With each performance, Sulara Nanayakkara continues to elevate the violin's voice in South Asia. Whether interpreting Sibelius' concerto or improvising on a baila tune, he remains a true master of his instrument — humble, expressive, and deeply connected to his roots. His upcoming season includes a residency at the Galle Music Festival and a collaboration with the Symphony Orchestra of Sri Lanka.</p>
+        <p>Beyond the stage, Sulara is a dedicated educator and cultural ambassador. He regularly conducts masterclasses at the University of the Visual and Performing Arts in Colombo and has mentored dozens of young violinists who now perform in orchestras across Asia. His recent album, <strong>“Strings of Serendip”</strong>, features original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble, earning a nomination for Best Classical Album at the South Asian Music Awards.</p>
+        <p style="margin-top: 1rem;">With each performance, Sulara Nanayakkara continues to elevate the violin’s voice in South Asia. Whether interpreting Sibelius’ concerto or improvising on a baila tune, he remains a true master of his instrument — humble, expressive, and deeply connected to his roots. His upcoming season includes a residency at the Galle Music Festival and a collaboration with the Symphony Orchestra of Sri Lanka.</p>
       </div>
 
       <div class="image-row">
@@ -536,20 +645,20 @@
       </div>
 
       <div class="bio-text">
-        <p>Sulara's artistry has taken him to prestigious venues including Wigmore Hall, Carnegie Hall, and the Colombo International Music Festival. Critics praise his "effortless bow control and deeply communicative phrasing". He continues to expand the violin repertoire by commissioning new works from Sri Lankan composers.</p>
+        <p>Sulara's artistry has taken him to prestigious venues including Wigmore Hall, Carnegie Hall, and the Colombo International Music Festival. Critics praise his “effortless bow control and deeply communicative phrasing”. He continues to expand the violin repertoire by commissioning new works from Sri Lankan composers.</p>
       </div>
 
       <div class="image-row">
         <div class="photo-item">
           <img src="image5.jpg" alt="Concert hall" class="plain-img" data-pop="right">
           <div class="img-description">
-            ✨ A spellbinding evening at the Lionel Wendt Theatre, Colombo. Sulara performed Brahms' Violin Concerto with the Chamber Orchestra of Sri Lanka. The audience rose for a standing ovation as his final notes echoed through the hall — a night that critics later called "a landmark in South Asian classical performance."
+            ✨ A spellbinding evening at the Lionel Wendt Theatre, Colombo. Sulara performed Brahms’ Violin Concerto with the Chamber Orchestra of Sri Lanka. The audience rose for a standing ovation as his final notes echoed through the hall — a night that critics later called “a landmark in South Asian classical performance.”
           </div>
         </div>
         <div class="photo-item">
           <img src="image1.jpg" alt="Backstage" class="plain-img" data-pop="bottom">
           <div class="img-description">
-            🎻 Behind the velvet curtain: Sulara shares a quiet moment after the world premiere of "Rhapsody on a Theme of Sri Lanka," a piece commissioned for him by the Ministry of Culture. In this image, he holds his 1760 Gagliano violin, reflecting on the fusion of traditional Kandyan melodies with Western baroque forms — a signature of his artistic identity.
+            🎻 Behind the velvet curtain: Sulara shares a quiet moment after the world premiere of “Rhapsody on a Theme of Sri Lanka,” a piece commissioned for him by the Ministry of Culture. In this image, he holds his 1760 Gagliano violin, reflecting on the fusion of traditional Kandyan melodies with Western baroque forms — a signature of his artistic identity.
           </div>
         </div>
       </div>
@@ -574,105 +683,114 @@
 </div>
 
 <script>
-  /* === PRELOADER === */
-  window.addEventListener('load', function () {
+  // === PRELOADER ===
+  window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
       preloader.classList.add('fade-out');
-      setTimeout(() => preloader.style.display = 'none', 800);
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 800);
     }
   });
 
-  /* === FLOATING GOLD SYMBOLS === */
-  (function () {
+  // === HAMBURGER MENU LOGIC ===
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const allNavLinks = document.querySelectorAll('.nav-link');
+
+  function toggleMenu() {
+    navLinks.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  menuOverlay.addEventListener('click', toggleMenu);
+
+  // Close menu and smooth scroll when link is clicked
+  allNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      menuOverlay.classList.remove('active');
+    });
+  });
+
+  // === FLOATING GOLD SYMBOLS ===
+  (function initFloatingSymbols() {
     const container = document.getElementById('symbolContainer');
     if (!container) return;
-    const syms = ['♪','♫','♩','♬','𝄞','𝄢','𝄟','𝆒','𝆓','🎵','🎶','𝅘𝅥𝅮','𝅘𝅥𝅯','𝅘𝅥𝅰','𝆕','𝄡','𝆎'];
-    const count = window.innerWidth < 768 ? 40 : 75;
-    for (let i = 0; i < count; i++) {
-      const el = document.createElement('div');
-      el.classList.add('symbol');
-      el.textContent = syms[Math.floor(Math.random() * syms.length)];
-      el.style.left = Math.random() * 100 + '%';
-      el.style.fontSize = (Math.random() * 2.2 + 0.9) + 'rem';
-      el.style.animationDuration = (Math.random() * 14 + 9) + 's';
-      el.style.animationDelay = (Math.random() * 20) + 's';
-      if (Math.random() > 0.6) el.classList.add('reverse');
-      container.appendChild(el);
+    const symbolsList = ['♪', '♫', '♩', '♬', '𝄞', '𝄢', '𝄟', '𝆒', '𝆓', '🎵', '🎶', '𝅘𝅥𝅮', '𝅘𝅥𝅯', '𝅘𝅥𝅰', '𝆕', '𝄡', '𝆎'];
+    const isMobile = window.innerWidth < 768;
+    const symbolCount = isMobile ? 40 : 75;
+    for (let i = 0; i < symbolCount; i++) {
+      const symbol = document.createElement('div');
+      symbol.classList.add('symbol');
+      symbol.textContent = symbolsList[Math.floor(Math.random() * symbolsList.length)];
+      symbol.style.left = Math.random() * 100 + '%';
+      const size = Math.random() * 2.2 + 0.9;
+      symbol.style.fontSize = size + 'rem';
+      const duration = Math.random() * 14 + 9;
+      symbol.style.animationDuration = duration + 's';
+      symbol.style.animationDelay = Math.random() * 20 + 's';
+      if (Math.random() > 0.6) symbol.classList.add('reverse');
+      container.appendChild(symbol);
     }
   })();
 
-  /* === SVG CURSIVE DRAW ANIMATION ===
-     The CSS animates stroke-dashoffset (draw-on).
-     After the draw completes (0.9s delay + 2.8s draw = 3.7s),
-     we add .filled so the gold fill fades in smoothly.       */
-  (function () {
-    const textEl = document.getElementById('heroName');
-    if (!textEl) return;
-
-    // Measure actual path length and set dasharray precisely
-    // getTotalLength() works on SVG <text> in modern browsers
-    // We do this after fonts load for accuracy
-    function setDashArray() {
-      try {
-        const len = textEl.getComputedTextLength ? textEl.getComputedTextLength() * 6 : 4000;
-        const dashLen = Math.max(len, 3000);
-        textEl.style.strokeDasharray = dashLen;
-        textEl.style.strokeDashoffset = dashLen;
-        // restart animation by toggling
-        textEl.style.animation = 'none';
-        // force reflow
-        void textEl.offsetWidth;
-        textEl.style.animation = 'drawSignature 2.8s cubic-bezier(0.4,0,0.2,1) 0.9s forwards';
-      } catch(e) { /* fallback to CSS default */ }
-    }
-
-    // Wait for Great Vibes font before measuring
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(setDashArray);
-    } else {
-      setTimeout(setDashArray, 500);
-    }
-
-    // After draw completes: fade in gold fill
-    // 0.9s delay + 2.8s draw + 0.2s buffer = 3.9s
-    setTimeout(() => {
-      textEl.classList.add('filled');
-    }, 3900);
-  })();
-
-  /* === IMAGE REVEAL === */
+  // Image reveal observer
   const images = document.querySelectorAll('.plain-img');
-  const imgObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('reveal'); imgObs.unobserve(e.target); }
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal');
+        imageObserver.unobserve(entry.target);
+      }
     });
-  }, { threshold: 0.2, rootMargin: '0px 0px -20px 0px' });
-  images.forEach(img => imgObs.observe(img));
+  }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
+  images.forEach(img => imageObserver.observe(img));
 
-  /* === FOOTER REVEAL === */
+  // Footer reveal animation
   const footer = document.querySelector('footer');
-  const footerObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { footer.classList.add('reveal-footer'); footerObs.unobserve(footer); }
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        footer.classList.add('reveal-footer');
+        footerObserver.unobserve(footer);
+      }
     });
   }, { threshold: 0.2 });
-  if (footer) footerObs.observe(footer);
+  if (footer) footerObserver.observe(footer);
 
-  /* === DUALSYNTAX LINK === */
+  // Dualsyntax IT link
   const dualLink = document.getElementById('dualsyntaxLink');
   if (dualLink) {
-    dualLink.addEventListener('click', e => {
+    dualLink.addEventListener('click', (e) => {
       e.preventDefault();
       window.open('https://web.dualsyntax.com', '_blank');
     });
   }
 
-  /* === NAVBAR SCROLL === */
+  // Navbar scroll effect
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
   });
+
+  // typewriter
+  const titleH1 = document.querySelector('.hero-text h1');
+  if (titleH1) {
+    titleH1.style.width = '0';
+    titleH1.addEventListener('animationend', function(e) {
+      if (e.animationName === 'typing') {
+        titleH1.style.borderRight = 'none';
+      }
+    });
+  }
 </script>
 </body>
 </html>
