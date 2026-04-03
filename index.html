@@ -252,7 +252,6 @@
       transition: 0.3s;
     }
 
-    /* Overlay background */
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -277,16 +276,16 @@
       .navbar-brand { font-size: 1.1rem; }
       
       .hamburger {
-        display: flex; /* Show burger on mobile */
+        display: flex;
       }
 
       .nav-links {
         position: fixed;
-        right: -100%; /* Hidden by default */
+        right: -100%;
         top: 0;
         flex-direction: column;
         background: rgba(10, 10, 10, 0.98);
-        width: 70%; /* Take only part of display */
+        width: 70%;
         height: 100vh;
         justify-content: center;
         gap: 2.5rem;
@@ -296,18 +295,17 @@
       }
 
       .nav-links.active {
-        right: 0; /* Slide in */
+        right: 0;
       }
 
       .nav-link { font-size: 1.1rem; }
     }
 
-    /* Smooth scrolling for page links */
     html {
       scroll-behavior: smooth;
     }
 
-    /* === HERO SECTION WITH ANIMATIONS === */
+    /* === HERO SECTION === */
     .hero {
       margin-top: 100px;
       position: relative;
@@ -352,6 +350,7 @@
       animation: fadeInUp 1s ease 0.3s forwards;
       opacity: 0;
       transform: translateX(-50%) translateY(30px);
+      z-index: 10; /* Added to keep above background symbols */
     }
 
     @keyframes fadeInUp {
@@ -394,17 +393,32 @@
       letter-spacing: 1px;
     }
 
+    /* MOBILE HERO TEXT ADJUSTMENTS */
     @media (max-width: 768px) {
       .hero { margin-top: 80px; }
       .hero-picture { height: 60vh; }
-      .hero-text { padding: 0.4rem 1rem; bottom: 6%; white-space: nowrap; }
-      .hero-text h1 { font-size: 2.2rem; animation: typing 1.5s steps(14, end) forwards; white-space: nowrap; }
-      .hero-text p { font-size: 0.9rem; }
+      
+      .hero-text { 
+        padding: 0.6rem 1.2rem; 
+        bottom: 12%; /* Pushed up from original 6% */
+        white-space: nowrap; 
+      }
+      
+      .hero-text h1 { 
+        font-size: 2.6rem; /* Slightly larger than original 2.2rem */
+        animation: typing 1.5s steps(14, end) forwards; 
+        white-space: nowrap; 
+      }
+      
+      .hero-text p { 
+        font-size: 1.05rem; /* Slightly larger than original 0.9rem */
+      }
     }
 
     @media (max-width: 480px) {
-      .hero-text h1 { font-size: 1.8rem; }
-      .hero-text p { font-size: 0.75rem; }
+      .hero-text h1 { font-size: 2.2rem; } /* Slightly larger than original 1.8rem */
+      .hero-text p { font-size: 0.85rem; } /* Slightly larger than original 0.75rem */
+      .hero-text { bottom: 15%; } /* Further up for very small devices */
     }
 
     /* === REST OF PAGE STYLES === */
@@ -708,7 +722,6 @@
   hamburger.addEventListener('click', toggleMenu);
   menuOverlay.addEventListener('click', toggleMenu);
 
-  // Close menu and smooth scroll when link is clicked
   allNavLinks.forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('active');
@@ -738,7 +751,6 @@
     }
   })();
 
-  // Image reveal observer
   const images = document.querySelectorAll('.plain-img');
   const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -750,7 +762,6 @@
   }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
   images.forEach(img => imageObserver.observe(img));
 
-  // Footer reveal animation
   const footer = document.querySelector('footer');
   const footerObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -762,7 +773,6 @@
   }, { threshold: 0.2 });
   if (footer) footerObserver.observe(footer);
 
-  // Dualsyntax IT link
   const dualLink = document.getElementById('dualsyntaxLink');
   if (dualLink) {
     dualLink.addEventListener('click', (e) => {
@@ -771,7 +781,6 @@
     });
   }
 
-  // Navbar scroll effect
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -781,7 +790,6 @@
     }
   });
 
-  // typewriter
   const titleH1 = document.querySelector('.hero-text h1');
   if (titleH1) {
     titleH1.style.width = '0';
