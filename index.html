@@ -1,804 +1,705 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sulara Nanayakkara | Violinist</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      background: #0a0a0a;
-      color: #f0f0f0;
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-
-    /* === CUSTOM LOADING ANIMATION (PRELOADER) === */
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000000;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-      backdrop-filter: blur(0px);
-    }
-
-    .preloader.fade-out {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-content {
-      text-align: center;
-    }
-
-    .loader-symbols {
-      font-size: 3rem;
-      letter-spacing: 0.5rem;
-      color: #f5bc70;
-      animation: pulseLoader 1.2s infinite ease-in-out;
-    }
-
-    .loader-symbols span {
-      display: inline-block;
-      animation: floatLoader 0.8s infinite alternate;
-    }
-
-    .loader-symbols span:nth-child(1) { animation-delay: 0s; }
-    .loader-symbols span:nth-child(2) { animation-delay: 0.15s; }
-    .loader-symbols span:nth-child(3) { animation-delay: 0.3s; }
-    .loader-symbols span:nth-child(4) { animation-delay: 0.45s; }
-    .loader-symbols span:nth-child(5) { animation-delay: 0.6s; }
-
-    @keyframes floatLoader {
-      0% { transform: translateY(0px); opacity: 0.4; }
-      100% { transform: translateY(-15px); opacity: 1; }
-    }
-
-    @keyframes pulseLoader {
-      0% { text-shadow: 0 0 0px rgba(245,188,112,0); }
-      50% { text-shadow: 0 0 12px rgba(245,188,112,0.8); }
-      100% { text-shadow: 0 0 0px rgba(245,188,112,0); }
-    }
-
-    .loader-text {
-      margin-top: 1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
-      color: #f5bc70;
-      letter-spacing: 2px;
-    }
-
-    /* === GOLD FLOATING SYMBOLS BACKGROUND === */
-    .animated-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background: #000000;
-      overflow: hidden;
-    }
-
-    .floating-symbols {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .symbol {
-      position: absolute;
-      color: #f5bc70;
-      font-size: clamp(1.2rem, 4vw, 3.2rem);
-      user-select: none;
-      white-space: nowrap;
-      animation: floatSymbol 12s infinite ease-in-out;
-      will-change: transform;
-      font-family: 'Segoe UI Symbol', 'Arial', 'Courier New', monospace;
-      opacity: 0.45;
-      text-shadow: 0 0 4px rgba(245,188,112,0.3);
-    }
-
-    .symbol:nth-child(odd) { color: #ffd966; opacity: 0.5; }
-    .symbol:nth-child(3n) { color: #e6b450; opacity: 0.42; }
-    .symbol:nth-child(5n+2) { color: #f0bc60; opacity: 0.48; }
-
-    @keyframes floatSymbol {
-      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.5; }
-      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
-    }
-
-    .symbol.reverse {
-      animation: floatSymbolReverse 14s infinite ease-in-out;
-    }
-    @keyframes floatSymbolReverse {
-      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.5; }
-      100% { transform: translateY(-20vh) rotate(-360deg); opacity: 0; }
-    }
-
-    /* === PROFESSIONAL NAVBAR === */
-    .navbar {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 40px);
-      max-width: 1400px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8rem 2rem;
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(12px);
-      border-radius: 60px;
-      z-index: 1000;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(245, 188, 112, 0.3);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-
-    .navbar.scrolled {
-      background: rgba(0, 0, 0, 0.96);
-      border-color: rgba(245, 188, 112, 0.6);
-      top: 10px;
-      width: calc(100% - 30px);
-    }
-
-    .navbar-brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, #f5bc70, #ffdd99);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav-link {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-decoration: none;
-      color: #f0e6d2;
-      letter-spacing: 1px;
-      padding: 0.4rem 0;
-      position: relative;
-      transition: color 0.3s ease;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: #f5bc70;
-      transition: width 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .nav-link:hover {
-      color: #f5bc70;
-    }
-
-    .nav-link.contact-highlight {
-      background: rgba(245, 188, 112, 0.2);
-      padding: 0.4rem 1.2rem;
-      border-radius: 40px;
-      border: 1px solid rgba(245, 188, 112, 0.5);
-      transition: all 0.3s ease;
-    }
-
-    .nav-link.contact-highlight:hover {
-      background: rgba(245, 188, 112, 0.35);
-      border-color: #f5bc70;
-      transform: translateY(-2px);
-    }
-
-    .nav-link.contact-highlight::after {
-      display: none;
-    }
-
-    /* === HAMBURGER MENU STYLES === */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-      z-index: 1001;
-      background: none;
-      border: none;
-      padding: 5px;
-    }
-
-    .hamburger .bar {
-      width: 25px;
-      height: 2px;
-      background-color: #f5bc70;
-      transition: 0.3s;
-    }
-
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 998;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-      backdrop-filter: blur(4px);
-    }
-
-    .menu-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    @media (max-width: 768px) {
-      .navbar { top: 10px; padding: 0.8rem 1.5rem; border-radius: 50px; background: rgba(0,0,0,0.94); }
-      .navbar-brand { font-size: 1.1rem; }
-      
-      .hamburger {
-        display: flex;
-      }
-
-      .nav-links {
-        position: fixed;
-        right: -100%;
-        top: 0;
-        flex-direction: column;
-        background: rgba(10, 10, 10, 0.98);
-        width: 70%;
-        height: 100vh;
-        justify-content: center;
-        gap: 2.5rem;
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 999;
-        border-left: 1px solid rgba(245, 188, 112, 0.3);
-      }
-
-      .nav-links.active {
-        right: 0;
-      }
-
-      .nav-link { font-size: 1.1rem; }
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* === HERO SECTION === */
-    .hero {
-      margin-top: 100px;
-      position: relative;
-      width: 100%;
-      min-height: 90vh;
-      overflow: hidden;
-    }
-
-    .hero-picture {
-      width: 100%;
-      height: 90vh;
-      animation: heroImageAnim 1.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
-      opacity: 0;
-      transform: scale(1.02);
-    }
-
-    @keyframes heroImageAnim {
-      0% { opacity: 0; transform: scale(1.05); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .hero-picture picture,
-    .hero-picture img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hero-text {
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(6px);
-      padding: 0.8rem 1.8rem;
-      border-radius: 3rem;
-      display: inline-block;
-      white-space: nowrap;
-      animation: fadeInUp 1s ease 0.3s forwards;
-      opacity: 0;
-      transform: translateX(-50%) translateY(30px);
-      z-index: 10; /* Added to keep above background symbols */
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateX(-50%) translateY(30px); }
-      100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-
-    .hero-text h1 {
-      font-family: 'Great Vibes', 'Snell Roundhand', 'Brush Script MT', cursive;
-      font-size: 5rem;
-      font-weight: 400;
-      color: #f5bc70;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-      letter-spacing: 2px;
-      margin-bottom: 0.2rem;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 2px solid #f5bc70;
-      width: 0;
-      animation: typing 1.8s steps(20, end) forwards, blinkCursor 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      0% { width: 0; }
-      100% { width: 100%; }
-    }
-
-    @keyframes blinkCursor {
-      0%, 100% { border-color: #f5bc70; }
-      50% { border-color: transparent; }
-    }
-
-    .hero-text p {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.3rem;
-      color: #fff0e0;
-      text-shadow: 1px 1px 2px black;
-      font-style: italic;
-      margin-top: 0.3rem;
-      letter-spacing: 1px;
-    }
-
-    /* MOBILE HERO TEXT ADJUSTMENTS */
-    @media (max-width: 768px) {
-      .hero { margin-top: 80px; }
-      .hero-picture { height: 60vh; }
-      
-      .hero-text { 
-        padding: 0.6rem 1.2rem; 
-        bottom: 12%; /* Pushed up from original 6% */
-        white-space: nowrap; 
-      }
-      
-      .hero-text h1 { 
-        font-size: 2.6rem; /* Slightly larger than original 2.2rem */
-        animation: typing 1.5s steps(14, end) forwards; 
-        white-space: nowrap; 
-      }
-      
-      .hero-text p { 
-        font-size: 1.05rem; /* Slightly larger than original 0.9rem */
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-text h1 { font-size: 2.2rem; } /* Slightly larger than original 1.8rem */
-      .hero-text p { font-size: 0.85rem; } /* Slightly larger than original 0.75rem */
-      .hero-text { bottom: 15%; } /* Further up for very small devices */
-    }
-
-    /* === REST OF PAGE STYLES === */
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .image-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-
-    .photo-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .plain-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      opacity: 0;
-      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
-    }
-
-    .plain-img[data-pop="left"] { transform: translateX(-60px); }
-    .plain-img[data-pop="right"] { transform: translateX(60px); }
-    .plain-img[data-pop="bottom"] { transform: translateY(60px); }
-
-    .plain-img.reveal {
-      opacity: 1;
-      transform: translateX(0) translateY(0);
-    }
-
-    .img-description {
-      margin-top: 1rem;
-      font-size: 1rem;
-      color: #e0cba0;
-      line-height: 1.5;
-      text-align: center;
-      font-family: 'Montserrat', sans-serif;
-      background: rgba(0,0,0,0.4);
-      padding: 0.8rem;
-      border-radius: 12px;
-    }
-
-    .bio-text {
-      background: rgba(10,10,10,0.55);
-      backdrop-filter: blur(4px);
-      padding: 2rem 2.5rem;
-      border-radius: 28px;
-      margin: 2rem 0;
-      font-size: 1.2rem;
-      line-height: 1.7;
-      color: #f5efe7;
-      border-left: 3px solid #f5bc70;
-    }
-
-    .bio-text strong {
-      color: #f5bc70;
-      font-weight: 600;
-    }
-
-    .badge-container {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin: 1.5rem 0 0.5rem;
-    }
-
-    .badge {
-      background: rgba(245,188,112,0.15);
-      padding: 0.4rem 1.2rem;
-      border-radius: 60px;
-      font-size: 0.9rem;
-      color: #f5bc70;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 1.5rem;
-      margin-top: 3rem;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      border-top: 1px solid rgba(245,188,112,0.3);
-      font-size: 0.9rem;
-      transform: translateY(30px);
-      opacity: 0;
-      transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.7s ease;
-    }
-
-    footer.reveal-footer {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 1.8rem;
-      margin-bottom: 1.2rem;
-      flex-wrap: wrap;
-    }
-
-    .social-icons a {
-      color: #f5bc70;
-      font-size: 1.8rem;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-
-    .social-icons a:hover {
-      color: #ffdd99;
-      transform: translateY(-5px);
-      text-shadow: 0 0 8px rgba(245,188,112,0.6);
-    }
-
-    .footer-credit {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      color: #d4c5a5;
-      margin-top: 0.8rem;
-    }
-
-    .footer-credit a {
-      color: #f5bc70;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.2s;
-      border-bottom: 1px dotted rgba(245,188,112,0.5);
-    }
-
-    .footer-credit a:hover {
-      color: #ffdd99;
-      border-bottom-color: #ffdd99;
-    }
-
-    .copyright {
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      opacity: 0.7;
-    }
-
-    @media (max-width: 768px) {
-      .bio-text { padding: 1.2rem 1.5rem; font-size: 1rem; }
-      .social-icons a { font-size: 1.5rem; }
-      .image-row { gap: 1rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sulara Nanayakkara — Violin</title>
+<meta name="description" content="Sulara Nanayakkara — violinist, Senior Head Violinist of Chamber Music Colombo. Royal Academy of Music, Juilliard. Bookings & press.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,440;0,9..144,560;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --ink:        #100d0a;
+  --ink-2:      #181310;
+  --ink-3:      #1f1812;
+  --parchment:  #f1e7d6;
+  --parchment-dim: #b8a98c;
+  --rosin:      #cf8a44;
+  --rosin-dim:  #cf8a4480;
+  --garnet:     #7c2a32;
+  --verdigris:  #5c7a70;
+  --hairline:   rgba(241,231,214,0.10);
+  --hairline-strong: rgba(241,231,214,0.22);
+  --shadow-deep: 0 30px 60px -20px rgba(0,0,0,0.65);
+  --ease: cubic-bezier(.22,.85,.32,1);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; background:var(--ink); }
+
+body{
+  font-family:'Outfit', sans-serif;
+  background:var(--ink);
+  color:var(--parchment);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{ background:var(--rosin); color:var(--ink); }
+
+a{ color:inherit; text-decoration:none; }
+
+img{ max-width:100%; display:block; }
+
+:focus-visible{
+  outline:2px solid var(--rosin);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* ============================================================
+   GRAIN OVERLAY — replaces the floating-symbols gimmick with a
+   single, quiet texture: the warmth of old varnish, not glitter.
+   ============================================================ */
+.grain{
+  position:fixed; inset:0; z-index:30; pointer-events:none;
+  opacity:0.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   PRELOADER — a single bow-stroke drawing itself, not a burst
+   of music glyphs.
+   ============================================================ */
+.preloader{
+  position:fixed; inset:0; z-index:9999; background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity .7s var(--ease), visibility .7s var(--ease);
+}
+.preloader.fade-out{ opacity:0; visibility:hidden; }
+.preloader svg{ width:220px; height:60px; overflow:visible; }
+.preloader path{
+  fill:none; stroke:var(--rosin); stroke-width:1.4; stroke-linecap:round;
+  stroke-dasharray:300; stroke-dashoffset:300;
+  animation:bow-draw 1.6s var(--ease) infinite;
+}
+@keyframes bow-draw{
+  0%{ stroke-dashoffset:300; opacity:.3; }
+  55%{ stroke-dashoffset:0; opacity:1; }
+  100%{ stroke-dashoffset:-300; opacity:.3; }
+}
+
+/* ============================================================
+   LAYOUT SHELL
+   ============================================================ */
+.wrap{ max-width:1240px; margin:0 auto; padding:0 1.75rem; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.navbar{
+  position:fixed; top:0; left:0; width:100%; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.4rem 1.75rem;
+  background:linear-gradient(to bottom, rgba(16,13,10,0.92), rgba(16,13,10,0));
+  transition:padding .35s var(--ease), background .35s var(--ease);
+}
+.navbar.scrolled{
+  padding:0.85rem 1.75rem;
+  background:rgba(16,13,10,0.94);
+  border-bottom:1px solid var(--hairline);
+  backdrop-filter:blur(8px);
+}
+.navbar-brand{
+  font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+  font-size:1.15rem; letter-spacing:.3px; color:var(--parchment);
+}
+.navbar-brand em{ color:var(--rosin); font-style:normal; font-weight:600; }
+
+.nav-links{ display:flex; align-items:center; gap:2.2rem; }
+.nav-link{
+  font-size:0.82rem; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--parchment-dim); position:relative; padding:0.3rem 0;
+  transition:color .25s ease;
+}
+.nav-link::after{
+  content:''; position:absolute; left:0; right:0; bottom:-2px; height:1px;
+  background:var(--rosin); transform:scaleX(0); transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.nav-link:hover{ color:var(--parchment); }
+.nav-link:hover::after{ transform:scaleX(1); }
+.nav-link.cta{
+  border:1px solid var(--hairline-strong); border-radius:30px;
+  padding:0.5rem 1.3rem; color:var(--rosin);
+}
+.nav-link.cta::after{ display:none; }
+.nav-link.cta:hover{ background:var(--rosin); color:var(--ink); border-color:var(--rosin); }
+
+.hamburger{
+  display:none; flex-direction:column; gap:5px; background:none; border:none;
+  cursor:pointer; padding:6px; z-index:1100;
+}
+.hamburger .bar{ width:24px; height:1.5px; background:var(--parchment); transition:.3s; }
+
+.menu-overlay{
+  position:fixed; inset:0; background:rgba(8,6,5,0.92); z-index:998;
+  opacity:0; visibility:hidden; transition:.35s;
+}
+.menu-overlay.active{ opacity:1; visibility:visible; }
+
+@media (max-width:860px){
+  .hamburger{ display:flex; }
+  .nav-links{
+    position:fixed; top:0; right:-100%; height:100vh; width:78%;
+    flex-direction:column; justify-content:center; align-items:flex-start;
+    gap:2.2rem; background:var(--ink-2); z-index:999; padding:0 3rem;
+    border-left:1px solid var(--hairline); transition:right .45s var(--ease);
+  }
+  .nav-links.active{ right:0; }
+  .nav-link{ font-size:1rem; }
+}
+
+/* ============================================================
+   HERO — the thesis: a single bowed line drawn beneath the name,
+   a tuning reference instead of a generic location tag.
+   ============================================================ */
+.hero{
+  position:relative; min-height:100vh; display:flex; align-items:flex-end;
+  overflow:hidden;
+}
+.hero-media{
+  position:absolute; inset:0; z-index:-1;
+}
+.hero-media img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; }
+.hero-media::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, var(--ink) 4%, rgba(16,13,10,0.35) 45%, rgba(16,13,10,0.55) 100%);
+}
+.hero-inner{
+  position:relative; z-index:2; width:100%; padding:0 1.75rem 5.5rem;
+  max-width:1240px; margin:0 auto;
+}
+.tuning-tag{
+  display:inline-flex; align-items:center; gap:0.6rem;
+  font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:1px;
+  color:var(--rosin); border:1px solid var(--hairline-strong); border-radius:30px;
+  padding:0.45rem 1rem; margin-bottom:1.6rem;
+  opacity:0; transform:translateY(14px); animation:rise .8s var(--ease) .15s forwards;
+}
+.tuning-tag i{ font-size:.6rem; }
+
+.hero-name{ overflow:visible; }
+.hero-name .first{
+  display:block; font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+  font-size:clamp(3.4rem, 10vw, 7.2rem); line-height:0.95; color:var(--parchment);
+  opacity:0; transform:translateY(24px); animation:rise .9s var(--ease) .3s forwards;
+}
+.hero-name .last{
+  display:block; font-family:'Outfit', sans-serif; font-weight:600;
+  font-size:clamp(1.3rem, 3vw, 2.1rem); letter-spacing:7px; text-transform:uppercase;
+  color:var(--parchment-dim); margin-top:0.3rem;
+  opacity:0; transform:translateY(18px); animation:rise .9s var(--ease) .5s forwards;
+}
+
+.bow-underline{ margin:1.6rem 0 1.8rem; width:min(420px, 60vw); height:18px; }
+.bow-underline path{
+  fill:none; stroke:var(--rosin); stroke-width:2; stroke-linecap:round;
+  stroke-dasharray:420; stroke-dashoffset:420;
+  animation:draw 1.3s var(--ease) .9s forwards;
+}
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+
+.hero-role{
+  font-size:1.05rem; color:var(--parchment); max-width:34ch;
+  opacity:0; transform:translateY(14px); animation:rise .9s var(--ease) 1.1s forwards;
+}
+.hero-role strong{ color:var(--rosin); font-weight:500; }
+
+@keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+
+.scroll-cue{
+  position:absolute; left:1.75rem; bottom:2rem; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:0.6rem;
+  font-family:'JetBrains Mono', monospace; font-size:0.65rem; letter-spacing:2px;
+  color:var(--parchment-dim); text-transform:uppercase;
+  opacity:0; animation:rise .9s var(--ease) 1.4s forwards;
+}
+.scroll-cue .line{ width:1px; height:36px; background:linear-gradient(var(--rosin), transparent); animation:cue-pulse 2s ease-in-out infinite; }
+@keyframes cue-pulse{ 0%,100%{ opacity:.4; } 50%{ opacity:1; } }
+
+@media (max-width:600px){
+  .hero{ align-items:flex-end; }
+  .hero-inner{ padding-bottom:4rem; }
+  .scroll-cue{ display:none; }
+}
+
+/* ============================================================
+   SECTION SCAFFOLDING
+   ============================================================ */
+section{ position:relative; padding:7rem 0; }
+.section-tight{ padding:4rem 0; }
+
+.eyebrow{
+  font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:3px;
+  text-transform:uppercase; color:var(--rosin); margin-bottom:1rem; display:block;
+}
+
+h2.headline{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.9rem, 4vw, 3rem);
+  color:var(--parchment); line-height:1.15; max-width:18ch;
+}
+h2.headline em{ font-style:italic; color:var(--rosin); font-weight:400; }
+
+/* ============================================================
+   CHAPTERS — G · D · A · E, the open strings of the violin,
+   low to high, used here as the order of the story itself:
+   roots, craft, voice, echo.
+   ============================================================ */
+.chapter{
+  display:grid; grid-template-columns:108px 1fr; gap:0 3rem;
+  border-top:1px solid var(--hairline); padding:5.5rem 0;
+}
+.chapter:first-of-type{ border-top:none; }
+
+.chapter-mark{
+  display:flex; flex-direction:column; align-items:center; gap:0.9rem;
+  padding-top:0.3rem;
+}
+.peg{
+  width:9px; height:9px; border-radius:50%; background:var(--rosin);
+  box-shadow:0 0 0 4px rgba(207,138,68,0.16);
+}
+.string-rule{ width:30px; height:160px; }
+.string-rule line{
+  stroke:var(--hairline-strong); stroke-width:1.4; transform-origin:50% 50%;
+}
+.chapter.plucked .string-rule line{ animation:pluck 1.1s var(--ease) both; }
+@keyframes pluck{
+  0%{ transform:translateX(0); }
+  18%{ transform:translateX(5px); }
+  38%{ transform:translateX(-3.5px); }
+  58%{ transform:translateX(2px); }
+  78%{ transform:translateX(-1px); }
+  100%{ transform:translateX(0); }
+}
+.string-letter{
+  font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+  font-size:1.7rem; color:var(--rosin);
+}
+.string-label{
+  font-family:'JetBrains Mono', monospace; font-size:0.62rem; letter-spacing:2px;
+  text-transform:uppercase; color:var(--parchment-dim); text-align:center;
+}
+
+.chapter-body{ max-width:62ch; }
+.chapter-body .headline{ margin-bottom:1.3rem; }
+.chapter-body p{ color:var(--parchment); font-size:1.05rem; margin-bottom:1rem; opacity:0.92; }
+.chapter-body p.lede{ font-size:1.18rem; color:#fff; opacity:1; }
+
+.stat-row{ display:flex; gap:2.5rem; margin-top:1.8rem; flex-wrap:wrap; }
+.stat{ border-left:1px solid var(--hairline-strong); padding-left:1rem; }
+.stat b{ display:block; font-family:'Fraunces', serif; font-size:1.6rem; color:var(--parchment); font-weight:500; }
+.stat span{ font-size:0.78rem; color:var(--parchment-dim); letter-spacing:.5px; }
+
+.plaque-row{ display:flex; gap:1.2rem; margin-top:1.8rem; flex-wrap:wrap; }
+.plaque{
+  border:1px solid var(--hairline-strong); border-radius:6px; padding:1.1rem 1.4rem;
+  min-width:200px; flex:1;
+}
+.plaque .school{ font-family:'Fraunces', serif; font-style:italic; font-size:1.1rem; color:var(--parchment); }
+.plaque .place{ font-size:0.78rem; color:var(--rosin); letter-spacing:1px; text-transform:uppercase; margin-top:0.3rem; }
+
+@media (max-width:780px){
+  .chapter{ grid-template-columns:1fr; gap:1.2rem; }
+  .chapter-mark{ flex-direction:row; gap:0.8rem; }
+  .string-rule{ display:none; }
+}
+
+/* ============================================================
+   GALLERY — "From the Stage": asymmetric editorial grid,
+   no two cells the same shape.
+   ============================================================ */
+.stage{ border-top:1px solid var(--hairline); padding:6rem 0; }
+.stage-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:3rem; }
+
+.stage-grid{
+  display:grid; grid-template-columns:repeat(6, 1fr); gap:1.2rem;
+}
+.stage-item{
+  position:relative; overflow:hidden; border-radius:8px;
+  background:var(--ink-2); border:1px solid var(--hairline);
+  opacity:0; transform:translateY(36px); transition:opacity .8s var(--ease), transform .8s var(--ease);
+}
+.stage-item.reveal{ opacity:1; transform:translateY(0); }
+.stage-item img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .8s var(--ease); }
+.stage-item:hover img{ transform:scale(1.045); }
+
+.stage-item.a{ grid-column:span 4; grid-row:span 2; aspect-ratio:4/5; }
+.stage-item.b{ grid-column:span 2; aspect-ratio:1/1; }
+.stage-item.c{ grid-column:span 2; aspect-ratio:1/1; }
+.stage-item.d{ grid-column:span 3; aspect-ratio:5/4; }
+.stage-item.e{ grid-column:span 3; aspect-ratio:5/4; }
+.stage-item.f{ grid-column:span 6; aspect-ratio:16/7; }
+
+.stage-cap{
+  position:absolute; left:0; right:0; bottom:0; padding:1.3rem 1.3rem 1.1rem;
+  background:linear-gradient(to top, rgba(10,8,6,0.88), transparent);
+  font-size:0.85rem; color:var(--parchment); line-height:1.45;
+}
+.stage-cap span{ display:block; color:var(--rosin); font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:0.3rem; }
+
+@media (max-width:900px){
+  .stage-grid{ grid-template-columns:repeat(2,1fr); }
+  .stage-item.a,.stage-item.b,.stage-item.c,.stage-item.d,.stage-item.e,.stage-item.f{ grid-column:span 2; aspect-ratio:4/5; }
+}
+
+/* ============================================================
+   PRESS — pull quotes, no carousel theatrics needed.
+   ============================================================ */
+.press{ border-top:1px solid var(--hairline); padding:6.5rem 0; }
+.quote{ border-top:1px solid var(--hairline); padding:2.4rem 0; }
+.quote:first-of-type{ border-top:none; }
+.quote p{
+  font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+  font-size:clamp(1.4rem, 2.6vw, 2.1rem); color:var(--parchment); max-width:30ch; line-height:1.3;
+}
+.quote cite{ display:block; margin-top:0.9rem; font-style:normal; font-size:0.8rem; letter-spacing:1px; color:var(--parchment-dim); text-transform:uppercase; }
+
+/* ============================================================
+   ECHO FEATURE — album block
+   ============================================================ */
+.echo-feature{
+  display:grid; grid-template-columns:280px 1fr; gap:3rem; margin-top:2.2rem;
+  border:1px solid var(--hairline-strong); border-radius:10px; padding:2rem;
+  background:var(--ink-2);
+}
+.echo-feature img{ width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:6px; }
+.echo-meta .album-eyebrow{ color:var(--verdigris); }
+.echo-meta h3{ font-family:'Fraunces', serif; font-style:italic; font-size:1.7rem; color:var(--parchment); margin-bottom:0.7rem; }
+.echo-list{ margin-top:1.4rem; }
+.echo-list li{ list-style:none; padding:0.75rem 0; border-top:1px solid var(--hairline); display:flex; gap:1rem; font-size:0.95rem; }
+.echo-list li:first-child{ border-top:none; }
+.echo-list b{ color:var(--rosin); font-weight:500; min-width:120px; }
+
+@media (max-width:760px){
+  .echo-feature{ grid-template-columns:1fr; }
+}
+
+/* ============================================================
+   CONTACT / FOOTER
+   ============================================================ */
+.contact{
+  border-top:1px solid var(--hairline);
+  padding:6rem 0 3rem; background:var(--ink-2);
+}
+.contact-head{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:2rem; align-items:flex-end; margin-bottom:3rem; }
+.contact-info{ display:flex; gap:2.5rem; flex-wrap:wrap; font-size:0.95rem; }
+.contact-info a{ border-bottom:1px solid var(--hairline-strong); padding-bottom:2px; transition:.25s; }
+.contact-info a:hover{ color:var(--rosin); border-color:var(--rosin); }
+
+.social-icons{ display:flex; gap:1.5rem; margin-top:1.6rem; }
+.social-icons a{
+  width:42px; height:42px; border:1px solid var(--hairline-strong); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--parchment);
+  transition:.25s;
+}
+.social-icons a:hover{ background:var(--rosin); color:var(--ink); border-color:var(--rosin); transform:translateY(-3px); }
+
+.footer-bottom{
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+  border-top:1px solid var(--hairline); padding-top:1.6rem; margin-top:2.5rem;
+  font-size:0.78rem; color:var(--parchment-dim);
+}
+.footer-bottom a{ color:var(--rosin); font-weight:500; border-bottom:1px dotted var(--rosin-dim); }
+.footer-bottom a:hover{ color:#ffd9a8; }
+
+/* reveal-on-scroll helper */
+.reveal-up{ opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal-up.in{ opacity:1; transform:translateY(0); }
+</style>
 </head>
 <body>
 
+<div class="grain" aria-hidden="true"></div>
+
 <div class="preloader" id="preloader">
-  <div class="loader-content">
-    <div class="loader-symbols">
-      <span>♪</span> <span>♫</span> <span>𝄞</span> <span>🎵</span> <span>♩</span>
-    </div>
-    <div class="loader-text">Sulara Nanayakkara</div>
+  <svg viewBox="0 0 220 60" aria-hidden="true">
+    <path d="M5,45 C40,10 80,55 110,30 C140,8 180,50 215,18" />
+  </svg>
+</div>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<nav class="navbar" id="navbar">
+  <div class="navbar-brand">Sulara <em>Nanayakkara</em></div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" class="nav-link">Home</a>
+    <a href="#journey" class="nav-link">Journey</a>
+    <a href="#stage" class="nav-link">Stage</a>
+    <a href="#press" class="nav-link">Press</a>
+    <a href="#contact" class="nav-link cta">Contact</a>
   </div>
-</div>
+</nav>
 
-<div class="animated-bg">
-  <div class="floating-symbols" id="symbolContainer"></div>
-</div>
+<main>
 
-<div class="content">
-  <div class="menu-overlay" id="menuOverlay"></div>
-
-  <nav class="navbar" id="navbar">
-    <div class="navbar-brand">Sulara Nanayakkara</div>
-    
-    <button class="hamburger" id="hamburger">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </button>
-
-    <div class="nav-links" id="navLinks">
-      <a href="#home" class="nav-link">HOME</a>
-      <a href="#bio1" class="nav-link">BIO</a>
-      <a href="#gallery" class="nav-link">GALLERY</a>
-      <a href="#contact" class="nav-link contact-highlight">CONTACT</a>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-media">
+      <picture>
+        <source media="(max-width: 768px)" srcset="hero mobile 1.jpg">
+        <source media="(min-width: 769px)" srcset="hero landscape 1.jpg">
+        <img src="hero landscape 1.jpg" alt="Sulara Nanayakkara performing violin">
+      </picture>
     </div>
-  </nav>
+    <div class="hero-inner">
+      <span class="tuning-tag"><i class="fa-solid fa-circle"></i>A440&nbsp;Hz · Colombo, Sri Lanka</span>
+      <h1 class="hero-name">
+        <span class="first">Sulara</span>
+        <span class="last">Nanayakkara</span>
+      </h1>
+      <svg class="bow-underline" viewBox="0 0 420 18" aria-hidden="true">
+        <path d="M2,12 C90,2 150,16 210,8 C270,1 340,15 418,5" />
+      </svg>
+      <p class="hero-role">Violin — <strong>Senior Head Violinist</strong>, Chamber Music Colombo. Carrying Kandyan melody into the concert hall.</p>
+    </div>
+    <div class="scroll-cue"><span>Begin</span><span class="line"></span></div>
+  </section>
 
-  <main>
-    <section id="home" class="hero">
-      <div class="hero-picture">
-        <picture>
-          <source media="(max-width: 768px)" srcset="hero mobile 1.jpg">
-          <source media="(min-width: 769px)" srcset="hero landscape 1.jpg">
-          <img src="hero landscape 1.jpg" alt="Sulara Nanayakkara">
-        </picture>
+  <!-- JOURNEY -->
+  <div class="wrap" id="journey">
+
+    <section class="chapter" data-chapter>
+      <div class="chapter-mark">
+        <span class="peg"></span>
+        <svg class="string-rule" viewBox="0 0 6 160"><line x1="3" y1="0" x2="3" y2="160" /></svg>
+        <span class="string-letter">G</span>
+        <span class="string-label">Roots</span>
       </div>
-      <div class="hero-text">
-        <h1 id="typewriterTitle">Sulara Nanayakkara</h1>
-        <p>Violinist | Sri Lanka’s lyrical voice</p>
+      <div class="chapter-body">
+        <span class="eyebrow">1996 — 2006</span>
+        <h2 class="headline">Where the <em>instinct</em> began</h2>
+        <p class="lede">Sulara Nanayakkara picked up his first violin at seven. Ten years later, he stood at the front of the National Youth Orchestra — having already outplayed musicians twice his age.</p>
+        <p>The instinct that carried him there was equal parts discipline and curiosity, and it has never left him. It's the same instinct that now pulls Western concert tradition and Sri Lankan melody into the same phrase.</p>
+        <div class="stat-row">
+          <div class="stat"><b>7</b><span>Age at first violin</span></div>
+          <div class="stat"><b>17</b><span>National Youth Orchestra</span></div>
+        </div>
       </div>
     </section>
 
-    <div class="container">
-      <div id="bio1" class="bio-text">
-        <p><strong>Sulara Nanayakkara</strong> is widely regarded as one of the finest violinists to emerge from Sri Lanka. His musical journey began at the age of seven, and by seventeen he had already won the National Youth Orchestra competition. Driven by an insatiable thirst for excellence, Sulara pursued advanced degrees at the <strong>Royal Academy of Music in London</strong> and the <strong>Juilliard School in New York</strong>, studying under legendary pedagogues. His playing blends technical precision with an unmistakable warmth that moves audiences from Colombo to Carnegie Hall.</p>
-        <div class="badge-container">
-          <span class="badge">🎓 RAM (UK)</span>
-          <span class="badge">🎓 Juilliard (USA)</span>
-          <span class="badge">🎻 Senior Head Violinist – Chamber Music Colombo</span>
-        </div>
-        <p style="margin-top: 1rem;">Currently, Sulara serves as the <strong>Senior Head Violinist of Chamber Music Colombo</strong>, where he leads the string section in groundbreaking performances that fuse Western classical traditions with Sri Lankan ragas. His interpretation of Bach's Chaconne has been called “spellbinding” by critics, and his 2024 tour raised funds for young musicians across the island.</p>
+    <section class="chapter" data-chapter>
+      <div class="chapter-mark">
+        <span class="peg"></span>
+        <svg class="string-rule" viewBox="0 0 6 160"><line x1="3" y1="0" x2="3" y2="160" /></svg>
+        <span class="string-letter">D</span>
+        <span class="string-label">Craft</span>
       </div>
-
-      <div class="image-row" id="gallery">
-        <div class="photo-item">
-          <img src="image3.jpg" alt="Performance" class="plain-img" data-pop="left">
-        </div>
-        <div class="photo-item">
-          <img src="image4.jpg" alt="Concert" class="plain-img" data-pop="right">
+      <div class="chapter-body">
+        <span class="eyebrow">London &amp; New York</span>
+        <h2 class="headline">Two conservatories, <em>one</em> standard</h2>
+        <p class="lede">That instinct took him abroad — first to the Royal Academy of Music in London, then to the Juilliard School in New York.</p>
+        <p>Under some of the instrument's most demanding teachers, he learned not just technique, but how to disappear inside a phrase — the difference between playing a note and meaning it.</p>
+        <div class="plaque-row">
+          <div class="plaque"><div class="school">Royal Academy of Music</div><div class="place">London, UK</div></div>
+          <div class="plaque"><div class="school">The Juilliard School</div><div class="place">New York, USA</div></div>
         </div>
       </div>
+    </section>
 
-      <div class="bio-text">
-        <p>Beyond the stage, Sulara is a dedicated educator and cultural ambassador. He regularly conducts masterclasses at the University of the Visual and Performing Arts in Colombo and has mentored dozens of young violinists who now perform in orchestras across Asia. His recent album, <strong>“Strings of Serendip”</strong>, features original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble, earning a nomination for Best Classical Album at the South Asian Music Awards.</p>
-        <p style="margin-top: 1rem;">With each performance, Sulara Nanayakkara continues to elevate the violin’s voice in South Asia. Whether interpreting Sibelius’ concerto or improvising on a baila tune, he remains a true master of his instrument — humble, expressive, and deeply connected to his roots. His upcoming season includes a residency at the Galle Music Festival and a collaboration with the Symphony Orchestra of Sri Lanka.</p>
+    <section class="chapter" data-chapter>
+      <div class="chapter-mark">
+        <span class="peg"></span>
+        <svg class="string-rule" viewBox="0 0 6 160"><line x1="3" y1="0" x2="3" y2="160" /></svg>
+        <span class="string-letter">A</span>
+        <span class="string-label">Voice</span>
       </div>
-
-      <div class="image-row">
-        <div class="photo-item">
-          <img src="image2.jpg" alt="Masterclass" class="plain-img" data-pop="bottom">
-        </div>
-        <div class="photo-item">
-          <img src="hero landscape 2.jpg" alt="Recording session" class="plain-img" data-pop="left">
-        </div>
+      <div class="chapter-body">
+        <span class="eyebrow">Chamber Music Colombo</span>
+        <h2 class="headline">A fusion he <em>leads</em>, not borrows</h2>
+        <p class="lede">Sulara now leads the string section as Senior Head Violinist of Chamber Music Colombo, where Western classical tradition meets the modal colour of Sri Lankan raga.</p>
+        <p>His reading of Bach's Chaconne has filled halls with a particular kind of silence. In 2024, he toured the island to raise funds for young musicians who remind him of himself at seven.</p>
       </div>
+    </section>
 
-      <div class="bio-text">
-        <p>Sulara's artistry has taken him to prestigious venues including Wigmore Hall, Carnegie Hall, and the Colombo International Music Festival. Critics praise his “effortless bow control and deeply communicative phrasing”. He continues to expand the violin repertoire by commissioning new works from Sri Lankan composers.</p>
+    <section class="chapter" data-chapter>
+      <div class="chapter-mark">
+        <span class="peg"></span>
+        <svg class="string-rule" viewBox="0 0 6 160"><line x1="3" y1="0" x2="3" y2="160" /></svg>
+        <span class="string-letter">E</span>
+        <span class="string-label">Echo</span>
       </div>
-
-      <div class="image-row">
-        <div class="photo-item">
-          <img src="image5.jpg" alt="Concert hall" class="plain-img" data-pop="right">
-          <div class="img-description">
-            ✨ A spellbinding evening at the Lionel Wendt Theatre, Colombo. Sulara performed Brahms’ Violin Concerto with the Chamber Orchestra of Sri Lanka. The audience rose for a standing ovation as his final notes echoed through the hall — a night that critics later called “a landmark in South Asian classical performance.”
+      <div class="chapter-body">
+        <span class="eyebrow">Recordings &amp; what's next</span>
+        <h2 class="headline">The work that <em>carries</em> forward</h2>
+        <p class="lede">Beyond the stage, Sulara mentors the next generation and keeps commissioning new ground for the instrument.</p>
+        <div class="echo-feature">
+          <img src="image2.jpg" alt="Strings of Serendip album artwork">
+          <div class="echo-meta">
+            <span class="eyebrow album-eyebrow">Album</span>
+            <h3>Strings of Serendip</h3>
+            <p>Original arrangements of traditional Sri Lankan folk songs for violin and chamber ensemble — nominated for Best Classical Album at the South Asian Music Awards.</p>
+            <ul class="echo-list">
+              <li><b>Masterclasses</b> University of the Visual &amp; Performing Arts, Colombo</li>
+              <li><b>Residency</b> Galle Music Festival — upcoming season</li>
+              <li><b>Collaboration</b> Symphony Orchestra of Sri Lanka</li>
+              <li><b>Commissions</b> New works by Sri Lankan composers</li>
+            </ul>
           </div>
         </div>
-        <div class="photo-item">
-          <img src="image1.jpg" alt="Backstage" class="plain-img" data-pop="bottom">
-          <div class="img-description">
-            🎻 Behind the velvet curtain: Sulara shares a quiet moment after the world premiere of “Rhapsody on a Theme of Sri Lanka,” a piece commissioned for him by the Ministry of Culture. In this image, he holds his 1760 Gagliano violin, reflecting on the fusion of traditional Kandyan melodies with Western baroque forms — a signature of his artistic identity.
-          </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- STAGE GALLERY -->
+  <section class="stage" id="stage">
+    <div class="wrap">
+      <div class="stage-head">
+        <div>
+          <span class="eyebrow">From the stage</span>
+          <h2 class="headline">Moments, <em>unposed</em></h2>
+        </div>
+      </div>
+      <div class="stage-grid">
+        <div class="stage-item a" data-reveal>
+          <img src="image5.jpg" alt="Sulara performing Brahms' Violin Concerto at the Lionel Wendt Theatre">
+          <div class="stage-cap"><span>Lionel Wendt Theatre, Colombo</span>Brahms' Violin Concerto with the Chamber Orchestra of Sri Lanka — a standing ovation critics called a landmark in South Asian classical performance.</div>
+        </div>
+        <div class="stage-item b" data-reveal>
+          <img src="image3.jpg" alt="Sulara on stage">
+          <div class="stage-cap"><span>On stage</span></div>
+        </div>
+        <div class="stage-item c" data-reveal>
+          <img src="image4.jpg" alt="Sulara in concert">
+          <div class="stage-cap"><span>In concert</span></div>
+        </div>
+        <div class="stage-item d" data-reveal>
+          <img src="image1.jpg" alt="Backstage after the premiere of Rhapsody on a Theme of Sri Lanka">
+          <div class="stage-cap"><span>Backstage</span>After the premiere of "Rhapsody on a Theme of Sri Lanka," holding his 1760 Gagliano violin.</div>
+        </div>
+        <div class="stage-item e" data-reveal>
+          <img src="image2.jpg" alt="Sulara teaching a masterclass">
+          <div class="stage-cap"><span>Masterclass</span>University of the Visual &amp; Performing Arts</div>
+        </div>
+        <div class="stage-item f" data-reveal>
+          <img src="hero landscape 2.jpg" alt="Sulara in a recording session">
+          <div class="stage-cap"><span>In the studio</span>Recording sessions for Strings of Serendip</div>
         </div>
       </div>
     </div>
+  </section>
 
-    <footer id="contact">
+  <!-- PRESS -->
+  <section class="press" id="press">
+    <div class="wrap">
+      <span class="eyebrow">Press</span>
+      <h2 class="headline" style="margin-bottom:2rem;">In their <em>own</em> words</h2>
+
+      <div class="quote">
+        <p>"A landmark in South Asian classical performance."</p>
+        <cite>On the Brahms Violin Concerto, Lionel Wendt Theatre</cite>
+      </div>
+      <div class="quote">
+        <p>"Effortless bow control and deeply communicative phrasing."</p>
+        <cite>On performances at Wigmore Hall, Carnegie Hall &amp; the Colombo International Music Festival</cite>
+      </div>
+      <div class="quote">
+        <p>"Spellbinding."</p>
+        <cite>On his interpretation of Bach's Chaconne</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-head">
+        <div>
+          <span class="eyebrow">Bookings &amp; press</span>
+          <h2 class="headline">Let's put this <em>on</em> a programme</h2>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <a href="mailto:sulara@chambermusic.lk">sulara@chambermusic.lk</a>
+        <a href="tel:+94771234567">+94 77 123 4567</a>
+      </div>
+
       <div class="social-icons">
-        <a href="https://wa.me/94771234567" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://facebook.com/sulara.violinist" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://instagram.com/sulara.violin" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://linkedin.com/in/sulara-nanayakkara" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/94771234567" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://facebook.com/sulara.violinist" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com/sulara.violin" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://linkedin.com/in/sulara-nanayakkara" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
       </div>
-      <p>📧 sulara@chambermusic.lk &nbsp;|&nbsp; 📞 +94 77 123 4567</p>
-      <div class="footer-credit">
-        Developed and created by <a href="#" id="dualsyntaxLink">Dualsyntax IT</a>
+
+      <div class="footer-bottom">
+        <span>© 2026 Sulara Nanayakkara — all images courtesy of the artist</span>
+        <span>Developed and created by <a href="https://web.dualsyntax.com" target="_blank" rel="noopener">Dualsyntax IT</a></span>
       </div>
-      <div class="copyright">
-        © 2026 Sulara Nanayakkara — All images courtesy of the artist
-      </div>
-    </footer>
-  </main>
-</div>
+    </div>
+  </footer>
+
+</main>
 
 <script>
-  // === PRELOADER ===
-  window.addEventListener('load', function() {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-      preloader.classList.add('fade-out');
-      setTimeout(() => {
-        preloader.style.display = 'none';
-      }, 800);
-    }
+  // PRELOADER
+  window.addEventListener('load', function(){
+    var p = document.getElementById('preloader');
+    if(p){ p.classList.add('fade-out'); setTimeout(function(){ p.style.display='none'; }, 750); }
   });
 
-  // === HAMBURGER MENU LOGIC ===
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  const menuOverlay = document.getElementById('menuOverlay');
-  const allNavLinks = document.querySelectorAll('.nav-link');
-
-  function toggleMenu() {
-    navLinks.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
-  }
-
+  // MOBILE MENU
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+  var menuOverlay = document.getElementById('menuOverlay');
+  function toggleMenu(){ navLinks.classList.toggle('active'); menuOverlay.classList.toggle('active'); }
   hamburger.addEventListener('click', toggleMenu);
   menuOverlay.addEventListener('click', toggleMenu);
-
-  allNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-      menuOverlay.classList.remove('active');
-    });
+  document.querySelectorAll('.nav-link').forEach(function(l){
+    l.addEventListener('click', function(){ navLinks.classList.remove('active'); menuOverlay.classList.remove('active'); });
   });
 
-  // === FLOATING GOLD SYMBOLS ===
-  (function initFloatingSymbols() {
-    const container = document.getElementById('symbolContainer');
-    if (!container) return;
-    const symbolsList = ['♪', '♫', '♩', '♬', '𝄞', '𝄢', '𝄟', '𝆒', '𝆓', '🎵', '🎶', '𝅘𝅥𝅮', '𝅘𝅥𝅯', '𝅘𝅥𝅰', '𝆕', '𝄡', '𝆎'];
-    const isMobile = window.innerWidth < 768;
-    const symbolCount = isMobile ? 40 : 75;
-    for (let i = 0; i < symbolCount; i++) {
-      const symbol = document.createElement('div');
-      symbol.classList.add('symbol');
-      symbol.textContent = symbolsList[Math.floor(Math.random() * symbolsList.length)];
-      symbol.style.left = Math.random() * 100 + '%';
-      const size = Math.random() * 2.2 + 0.9;
-      symbol.style.fontSize = size + 'rem';
-      const duration = Math.random() * 14 + 9;
-      symbol.style.animationDuration = duration + 's';
-      symbol.style.animationDelay = Math.random() * 20 + 's';
-      if (Math.random() > 0.6) symbol.classList.add('reverse');
-      container.appendChild(symbol);
-    }
-  })();
-
-  const images = document.querySelectorAll('.plain-img');
-  const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal');
-        imageObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
-  images.forEach(img => imageObserver.observe(img));
-
-  const footer = document.querySelector('footer');
-  const footerObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        footer.classList.add('reveal-footer');
-        footerObserver.unobserve(footer);
-      }
-    });
-  }, { threshold: 0.2 });
-  if (footer) footerObserver.observe(footer);
-
-  const dualLink = document.getElementById('dualsyntaxLink');
-  if (dualLink) {
-    dualLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.open('https://web.dualsyntax.com', '_blank');
-    });
-  }
-
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
+  // NAVBAR ON SCROLL
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function(){
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  const titleH1 = document.querySelector('.hero-text h1');
-  if (titleH1) {
-    titleH1.style.width = '0';
-    titleH1.addEventListener('animationend', function(e) {
-      if (e.animationName === 'typing') {
-        titleH1.style.borderRight = 'none';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // CHAPTER "PLUCK" ON ENTER
+  if(!reduceMotion){
+    var chapters = document.querySelectorAll('[data-chapter]');
+    var chapterObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('plucked');
+          chapterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    chapters.forEach(function(c){ chapterObserver.observe(c); });
+  }
+
+  // GALLERY REVEAL
+  var stageItems = document.querySelectorAll('[data-reveal]');
+  var stageObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if(entry.isIntersecting){
+        setTimeout(function(){ entry.target.classList.add('reveal'); }, i * 60);
+        stageObserver.unobserve(entry.target);
       }
     });
-  }
+  }, { threshold: 0.15 });
+  stageItems.forEach(function(el){ stageObserver.observe(el); });
 </script>
 </body>
 </html>
